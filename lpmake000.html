@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="初心者でも安心！ホームページ作成の無料Webセミナーを開催。2025年10月15日（水）19:00〜、基礎から丁寧に学べる内容で、初めての方も安心して参加できます。">
+	<title>ホームページ作成無料Webセミナー</title>
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style>
+	body {
+		background: linear-gradient(to right, #f0f8ff, #e6f7ff);
+		font-family: 'Segoe UI', sans-serif;
+	}
+	.hero {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		padding: 20px;
+	}
+	.hero {
+		background-image: url('img/corporate050-3.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		color: white;
+		text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+	}
+	
+	.hero::before {
+		content: "";
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		background-color: rgba(0, 0, 0, 0.4); /* 半透明の黒 */
+		z-index: 0;
+	}
+
+	.hero > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero h1 {
+		font-size: 2.8rem;
+		line-height: 1.3;
+	}
+	.hero p {
+		font-size: 1.4rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-button {
+		background-color: #007bff;
+		color: white;
+		padding: 12px 24px;
+		border: none;
+		border-radius: 8px;
+		font-size: 1.1rem;
+		transition: transform 0.3s ease, background-color 0.3s ease;
+		margin-top: 20px;
+	}
+	.cta-button {
+		box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		border: 2px solid white;
+	}
+	.cta-button:hover {
+		transform: scale(1.05);
+		background-color: #0056b3;
+	}
+	.info-box {
+		background-color: #f8f9fa;
+		padding: 15px;
+		border-radius: 8px;
+		max-width: 500px;
+		margin: 0 auto;
+	font-size: 1rem;
+	}
+
+	</style>
+</head>
+<body>
+	<section class="hero">
+		<h1>ホームページ作成無料Webセミナー</h1>
+		<p>「初心者でも安心！ホームページ作成のノウハウを丁寧に教えます」</p>
+		<div class="info-box mt-3">
+			<p><strong>開催日：</strong>2025年10月15日（水）19:00〜</p>
+			<p><strong>対象者：</strong>ホームページ作成に興味のある初心者〜中級者</p>
+		</div>
+		<a href="#apply" class="cta-button">無料で参加する</a>
+	</section>
+</body>
+</html>

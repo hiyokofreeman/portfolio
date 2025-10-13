@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ラーメンも寿司もスマホで簡単注文！『いつでも出前Webサービス』は、人気メニューをあなたの食卓へ直行便。出前がもっと楽しくなる、便利で美味しい毎日を。">
+	<title>いつでも出前Webサービス</title>
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style>
+	body {
+		font-family: 'BIZ UDP Gothic', sans-serif;
+		margin: 0;
+		background-color: #fdf8f2;
+		color: #3e2f1c;
+	}
+
+	footer {
+		text-align: center;
+		padding: 1em;
+		background-color: #e8d9c4;
+		margin-top: 2em;
+	}
+
+	.hero {
+		background: url('img/lpmake020-0.png') center/cover no-repeat;
+		height: 60vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.hero-text {
+		padding: 2rem;
+	}
+
+	.slide p {
+		font-size: 1.1rem;
+		font-weight: bold;
+		color: #3e2f1c;
+	}
+
+	.hero-text h1 {
+		font-size: 3rem;
+		font-weight: 900;
+		text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+	}
+	.hero-text {
+		background-color: rgba(0, 0, 0, 0.4);
+		padding: 2rem;
+		border-radius: 12px;
+	}
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.hero-text h1 {
+		animation: fadeIn 1s ease-out;
+	}
+
+	.hero-text h1 {
+		font-size: 2.5rem;
+		color: #fff;
+		margin-bottom: 1rem;
+	}
+
+	.hero-text p {
+		font-size: 1.2rem;
+		color: #f0f0f0;
+		margin-bottom: 2rem;
+	}
+
+	.cta-button {
+		background-color: #e63946;
+		color: white;
+		padding: 1rem 2rem;
+		text-decoration: none;
+		border-radius: 8px;
+		font-weight: bold;
+		transition: background-color 0.3s;
+	}
+
+	.cta-button:hover {
+		background-color: #d62828;
+	}
+
+	.menu-slider {
+		padding: 2rem;
+		background-color: #fff;
+		text-align: center;
+	}
+
+	.menu-slider h2 {
+		font-size: 1.8rem;
+		margin-bottom: 1rem;
+	}
+
+	.slider {
+		display: flex;
+		overflow-x: auto;
+		gap: 1rem;
+		padding: 1rem 0;
+	}
+
+	.slide {
+		width: 200px; height: auto;
+		flex-shrink: 0;
+		box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+		border-radius: 8px;
+		background-color: #fff;
+		transition: transform 0.3s ease;
+	}
+
+	.slide:hover {
+		transform: scale(1.05);
+	}
+
+	.slide img {
+		width: 100%;
+		border-radius: 8px;
+	}
+
+	.slide p {
+		margin-top: 0.5rem;
+		font-size: 1rem;
+	}
+	</style>
+</head>
+<body>
+	<header class="hero">
+		<div class="hero-text">
+			<h1>🍽️ 今日のごちそう、スマホでひとつ。</h1>
+			<p>ラーメンも寿司も、あなたの食卓へ直行便。出前がもっと楽しくなる。</p>
+			<a href="#menu" class="cta-button">今すぐ注文する</a>
+		</div>
+	</header>
+
+	<section id="menu" class="menu-slider">
+		<h2>人気メニュー</h2>
+		<div class="slider">
+			<div class="slide"><img src="img/lpmake020-1.png" alt="ラーメン"><p>ラーメン</p></div>
+			<div class="slide"><img src="img/lpmake020-2.png" alt="寿司"><p>寿司</p></div>
+			<div class="slide"><img src="img/lpmake020-3.png" alt="餃子"><p>餃子</p></div>
+			<div class="slide"><img src="img/lpmake020-4.png" alt="天ぷら"><p>天ぷら</p></div>
+			<div class="slide"><img src="img/lpmake020-5.png" alt="うどん"><p>うどん</p></div>
+			<div class="slide"><img src="img/lpmake020-6.png" alt="チャーハン"><p>チャーハン</p></div>
+			<div class="slide"><img src="img/lpmake020-7.png" alt="チキン"><p>チキン</p></div>
+			<div class="slide"><img src="img/lpmake020-8.png" alt="ハンバーグ"><p>ハンバーグ</p></div>
+		</div>
+	</section>
+
+	<footer>
+		<p>&copy; いつでも出前Webサービス</p>
+	</footer>
+
+	<script>
+		const slides = document.querySelector('.slides');
+		const images = document.querySelectorAll('.slides img');
+		let index = 0;
+
+		document.querySelector('.next').addEventListener('click', () => {
+			index = (index + 1) % images.length;
+			slides.style.transform = `translateX(-${400 * index}px)`;
+		});
+
+		document.querySelector('.prev').addEventListener('click', () => {
+			index = (index - 1 + images.length) % images.length;
+			slides.style.transform = `translateX(-${400 * index}px)`;
+		});
+	</script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+	<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

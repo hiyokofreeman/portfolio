@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+/* すべてのWebページに適用される */
+html {
+	font-family: sans-serif;
+}
+html * {
+	box-sizing: border-box;
+}
+
+.contact-form, .contact-info, .faq {
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 30px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+label {
+	display: block;
+	margin-top: 15px;
+}
+
+input, textarea {
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+button {
+	margin-top: 20px;
+	background-color: #a3c9a8;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #8bbf94;
+}
+
+dl dt {
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.faq ul {
+	list-style: none;
+	padding: 0;
+}
+
+.faq li {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 20px;
+	background-color: #fffdf8;
+	border-radius: 8px;
+	padding: 15px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.faq-icon {
+	width: 48px;
+	height: 48px;
+	margin-right: 15px;
+}
+
+.faq-text strong {
+	display: block;
+	font-size: 1em;
+	margin-bottom: 5px;
+	color: #6b4f3b;
+}
+
+.faq-text p {
+	margin: 0;
+	color: #444;
+}
+
+

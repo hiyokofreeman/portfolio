@@ -1,0 +1,113 @@
+body {
+    font-family: 'BIZ UDP Gothic', sans-serif;
+    margin: 0;
+    background-color: #fdfaf5;
+    color: #333;
+}
+
+/* ヘッダーの背景と文字の視認性を改善 */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../img/cafe030-7.png') center/cover no-repeat;
+    text-align: center;
+    padding: 80px 20px;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 2.4em;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6); /* 文字をくっきり */
+}
+
+.hero p {
+    font-size: 1.1em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* メニュー全体の余白と文字サイズを調整 */
+.menu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 50px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.menu-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-4px);
+}
+
+.menu-item img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.menu-item h2 {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.menu-item p {
+    font-size: 1em;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 12px;
+    max-width: 500px;
+}
+
+.menu-item span {
+    font-weight: bold;
+    color: #b45309;
+    font-size: 1.2em;
+}
+
+/* お知らせセクション */
+.notice {
+    background-color: #fff8dc;
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 2px dashed #e0c080;
+    color: #5c3b00;
+    margin-bottom: 80px; /* 下に余白を追加 */
+}
+
+.notice h2 {
+    font-size: 1.6em;
+    margin-bottom: 12px;
+}
+
+.menu-more {
+    background-color: #fdf6e3;
+    padding: 32px;
+    margin-top: 40px;
+    margin-bottom: 40px; /* 下に余白を追加 */
+    border-left: 6px solid #d35400;
+    border-radius: 8px;
+    color: #3e2f1c;
+}
+.menu-more h2 {
+    font-size: 22px;
+    color: #d35400;
+    margin-bottom: 12px;
+}
+.menu-more p {
+    font-size: 1.1em;
+    line-height: 1.8;
+}

@@ -1,0 +1,433 @@
+@charset "UTF-8";
+
+/* すべてのWebページに適用される */
+html {
+	font-family: sans-serif;
+}
+html * {
+	box-sizing: border-box;
+}
+body {
+	padding-top: 70px; /* ヘッダーの高さに合わせて調整 */
+	margin: 0 0 0 0;
+/*		background-color: #eeece9;	*/
+	background-color: #f7f6f4;
+/*	font-family: "メイリオ" ;	*/
+/*	font-family: "Noto Sans JP", sans-serif;	*/
+/*	font-family: "Yu Gothic", "Meiryo", "MS Gothic";	*/
+	font-family: 'BIZ UDP Gothic', sans-serif;
+	font-size: 16px;
+	line-height: 1.8;
+}
+.wrapper {
+	margin: 0 auto 0 auto;
+	max-width: 960px;
+}
+
+section.pattern1 {
+	margin-bottom: 40px;
+}
+
+section.pattern2 {
+	margin-bottom: 60px;
+	text-align: center;
+}
+
+.section-vision {
+	background-color: #f5f5f5;
+	padding: 40px 0;
+}
+
+.section-mission {
+	background-color: #eaeaea;
+	padding: 40px 0;
+}
+
+.section-business {
+	background-color: #f5f5f5;
+	padding: 40px 0;
+	text-align: center;
+}
+
+.section-cases {
+	background-color: #eaeaea;
+	padding: 40px 0;
+}
+
+.section-box {
+	padding: 24px;
+	margin-bottom: 40px;
+	background-color: #ffffff;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+	border-radius: 8px;
+}
+.section-title {
+/*	margin-bottom: 16px;	*/
+	font-size: 24px;
+	font-weight: bold;
+	border-left: 6px solid #3f5170;
+	padding-left: 12px;
+	color: #3f5170;
+}
+
+.section-box + .section-box {
+	margin-top: 40px;
+}
+
+header {
+	background-color: #dde2ea;
+	padding: 30px 0;
+}
+
+header h1 {
+	text-align: center;
+	margin: 40px 0 20px 0;
+	font-size: 32px;
+	color: #3f5170;
+}
+
+header h3 {
+	font-size: 36px;
+	font-weight: bold;
+	color: #3f5170;
+	text-align: center;
+	margin: 40px 0 20px 0;
+	border-bottom: 3px dotted #3f5170;
+	padding-bottom: 10px;
+}
+
+h1 {
+	font-size: 36px;
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	padding: 10px;
+	background-color: #fdf6ec;
+	border-radius: 8px;
+}
+
+h2 {
+	color: #3f5170;
+	font-size: 22px;
+	font-weight: bold;
+/*	border-bottom: 3px dotted #3f5170;	*/
+	margin-top: 30px;
+	margin-right: 0px;
+	margin-bottom: 20px;
+	margin-left: 0px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+
+h3 {
+	font-size: 28px;
+	font-weight: bold;
+	color: #3f5170;
+	margin-bottom: 20px;
+}
+
+h2, h3 {
+	line-height: 1.4;
+}
+
+.catchcopy {
+	font-size: 1.2em;
+	background-color: #fdf6ec;
+	border-left: 6px solid #d25833;
+	padding: 12px 20px;
+	margin-bottom: 40px;
+	color: #3e2f1c;
+}
+
+p {
+	line-height: 1.6;
+	margin-bottom: 40px;
+}
+
+a {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+a:link {
+	color: #d25833;
+}
+a:visited {
+	color: #d25833;
+}
+a:hover {
+/*	color: #e3937a;	*/
+	color: #003d80;
+}
+a:active {
+	color: #ff6a3b;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.staff-photo {
+	width: 100%;
+	max-width: 300px; /* 必要に応じて調整 */
+	height: auto;
+	display: block;
+	margin: 0 auto 20px auto; /* 中央寄せと余白 */
+	border-radius: 8px; /* 角丸が必要なら */
+}
+
+/* すべてのページに適用 - ヘッダー - */
+.logo {
+	margin: 50px 0 40px 0;
+	line-height: 0;
+	text-align: center;
+}
+.nav li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 30px;
+}
+.nav ul {
+	margin: 0 0 0 0;
+	padding: 20px 10px 15px 20px;
+	background-image: url(../images/menu-bg.png);
+	background-repeat: repeat-x;
+}
+.nav a:link {
+	color: #3c454d;
+	text-decoration: none;
+}
+.nav a:visited {
+	color: #3c454d;
+	text-decoration: none;
+}
+.nav a:hover {
+	color: #7b8dac;
+	text-decoration: none;
+}
+.nav a:active {
+	color: #5a9bc0;
+	text-decoration: none;
+}
+
+table {
+	border: 1px solid #000;
+}
+
+table th {
+	border: 1px solid #000;
+}
+
+table td {
+	border: 1px solid #000;
+}
+
+/* すべてのページに適用 - フッター - */
+footer {
+	background-color: #d8c4a3;
+	color: #3e2f1c;
+	text-align: center;
+	padding: 1em;
+	font-size: 0.85em;
+}
+
+.navbar {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul li::marker {
+	color: #3f5170;
+}
+
+ul {
+	padding-left: 1.5em;
+}
+
+.iframe-wrp {
+	text-align: center;
+	margin-top: 20px;
+}
+iframe {
+	max-width: 100%;
+	height: auto;
+}
+
+img.common-img {
+	width: 100%;
+	max-width: 800px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
+.nav-link.active {
+	font-weight: bold;
+	color: #3f5170;
+	border-bottom: 2px solid #3f5170;
+}
+
+/* 個別のスタイル */
+/* index.html */
+.keyvisual {
+	margin: 15px 0 0 0;
+}
+.news-item {
+	margin: 0;
+}
+
+/* about.html */
+.shop-photo {
+	float: left;
+	padding: 0 1em 1em 0;
+}
+.clear {
+	clear: both;
+}
+/* テーブル */
+.info {
+	border-collapse: collapse;
+}
+.info th, .info td {
+	padding: 8px;
+	border: 1px solid #bec2c7;
+	text-align: left;
+}
+.info th {
+	background-color: #dde2ea;
+	width: 90px;
+	color: #3f5170;
+	vertical-align: top;
+}
+
+/* menu.html */
+.menu-item {
+	display: flex;
+	border-bottom: 1px dashed #bec2c7;
+	padding: 20px 8px;
+}
+.menu-photo {
+	margin-right: 16px;
+	flex: 1 1 auto;
+}
+.menu-text {
+	flex: 0 0 336px;
+}
+
+/* access.html */
+.map {
+	text-align: center;
+}
+
+/* contact.html */
+form div {
+	padding:12px;
+	border-bottom: 1px dashed #bec2c7;
+}
+select {
+	width: 30em;
+}
+input[name="subject"] {
+	width:30em;
+}
+textarea {
+	width: 30em;
+	height: 6em;
+}
+input[type="submit"] {
+	margin: 20px 0;
+	width: 30em;
+}
+
+/* スタイリッシュでクライアント重視のコーポレートサイトに合う背景色の 5パターン */
+/* パターン1：ライトグレー（モダンで読みやすい） */
+body.pattern1 {
+  background-color: #F5F5F5;
+  color: #333333;
+}
+
+/* パターン2：ホワイト（万能で清潔感） */
+body.pattern2 {
+  background-color: #FFFFFF;
+  color: #333333;
+}
+
+/* パターン3：ダークグレー（高級感・重厚） */
+body.pattern3 {
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+}
+
+/* パターン4：グレージュ（柔らかく落ち着いた印象） */
+body.pattern4 {
+  background-color: #EAEAEA;
+  color: #333333;
+}
+
+/* パターン5：ネイビーブラック（先進性・技術力） */
+body.pattern5 {
+  background-color: #0F172A;
+  color: #FFFFFF;
+}
+
+body {
+	background-color: #f5f0e6; /* やさしいベージュ */
+	color: #3e2f1c; /* 落ち着いたブラウン系の文字色 */
+	font-family: 'M PLUS Rounded 1c', sans-serif;
+	line-height: 1.8;
+	margin: 0;
+	padding: 0;
+}
+
+/* スマートフォン向けCSS */
+@media (max-width: 767px) {
+	/* 全体 - ナビゲーション */
+	.wrapper {
+		margin: 0 8px;
+	}
+	.logo {
+		margin: 30px 0;
+	}
+	.logo img {
+		width: 200px;
+	}
+	.nav {	
+		background-color: #dfddda;
+	}
+	.nav li {
+		display: block;
+	}
+
+	/* menu.html - 横並び解除 */
+	.menu-item {
+		display: block;
+	}
+	.menu-photo {
+		margin-right: 0;
+		width: 100%;
+	}
+	.menu-text {
+		width: 100%;
+	}
+
+	/* contact.html - フォーム */
+	select {
+		width: 100%;
+	}
+	input[name="subject"] {
+		width: 100%;
+	}
+	textarea {
+		width: 100%;
+	}
+	input[type="submit"] {
+		margin: 20px 0;
+		width: 100%;
+	}
+	.section-box {
+		padding: 16px;
+	}
+}

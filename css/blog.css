@@ -1,0 +1,129 @@
+.blog-section {
+	max-width: 800px;
+	margin: 2em auto;
+	padding: 1em;
+}
+
+.card {
+	background-color: #fffaf3;
+	border: 1px solid #d8c4a3;
+	border-radius: 10px;
+	padding: 1em;
+	margin-bottom: 1.5em;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card .date {
+	font-size: 0.9em;
+	color: #7a5c3e;
+	margin-bottom: 0.5em;
+}
+
+.card h3 {
+	font-size: 1.2em;
+	margin-bottom: 0.5em;
+	color: #4b3f2f;
+}
+
+.card p {
+	font-size: 1em;
+	color: #5a4633;
+}
+
+.card img {
+	max-width: 120px;      /* 横幅の最大値を指定 */
+	height: auto;          /* 縦横比を保つ */
+	float: right;          /* テキストの横に配置（任意） */
+	margin-left: 1em;      /* テキストとの間隔 */
+	border-radius: 8px;    /* 角を丸くして柔らかい印象に */
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ほんのり影をつける */
+}
+
+/* セクション全体の余白とフォント */
+.news-section {
+	padding: 2em;
+/*	font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;	*/
+	background-color: #fff8f0;
+	color: #4b3b2a;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+	margin-bottom: 80px; /* 下に余白を追加 */
+}
+
+/* 見出し */
+.news-section h2 {
+	font-size: 1.6em;
+	margin-bottom: 0.5em;
+	color: #a0522d;
+}
+
+/* テーブルの基本スタイル */
+.curry-menu {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1em;
+	background-color: #fff;
+}
+
+.curry-menu td {
+	padding: 1em;
+	line-height: 1.6;
+}
+
+.curry-menu td:first-child::before {
+	content: "🍛 ";
+}
+
+/* ヘッダー行 */
+.curry-menu thead {
+	background-color: #f2e4d8;
+}
+
+.curry-menu th, .curry-menu td {
+	padding: 0.8em;
+	border: 1px solid #d8c3b0;
+	text-align: left;
+	vertical-align: top;
+}
+
+/* 曜日列を少し強調 */
+.curry-menu td:first-child {
+	font-weight: bold;
+	color: #6b4c3b;
+}
+.curry-menu td:first-child::before {
+	content: "🍛 ";
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 600px) {
+	.curry-menu thead {
+		display: none;
+	}
+
+	.curry-menu, .curry-menu tbody, .curry-menu tr, .curry-menu td {
+		display: block;
+		width: 100%;
+	}
+
+	.curry-menu tr {
+		margin-bottom: 1em;
+		border: 1px solid #e0d4c0;
+		padding: 1em;
+		background-color: #fffdf9;
+		border-radius: 6px;
+	}
+
+	.curry-menu td {
+		padding: 0.5em 0;
+		border: none;
+	}
+
+	.curry-menu td::before {
+		content: attr(data-label);
+		font-weight: bold;
+		display: block;
+		color: #a0522d;
+		margin-bottom: 0.3em;
+	}
+}

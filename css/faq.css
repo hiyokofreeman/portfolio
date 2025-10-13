@@ -1,0 +1,86 @@
+body {
+	font-family: 'BIZ UDP Gothic', sans-serif;
+	background-color: #fdf8f2;
+	color: #4b3f2f;
+	margin: 0;
+	padding: 0;
+}
+
+.contact-form {
+	max-width: 600px;
+	margin: 2em auto;
+	padding: 2em;
+	background-color: #fffaf3;
+	border: 2px dotted #c8bba7;
+	border-radius: 12px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+	font-family: "Yu Gothic", sans-serif;
+}
+
+.contact-form label {
+	display: block;
+	margin-top: 1em;
+	font-weight: bold;
+	color: #5a4633;
+}
+
+.contact-form input,
+.contact-form textarea {
+	width: 100%;
+	padding: 0.8em;
+	margin-top: 0.5em;
+	border: 1px solid #c2b8a3;
+	border-radius: 6px;
+	background-color: #fffef9;
+	font-size: 1em;
+}
+
+.contact-form button {
+	margin-top: 1.5em;
+	padding: 0.8em 2em;
+	background-color: #a67c52;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contact-form button:hover {
+	background-color: #8c6842;
+}
+
+.contact-info, .faq {
+	max-width: 600px;
+	margin: 2em auto;
+	padding: 1em;
+	background-color: #f7f2ea;
+	border: 1px dashed #c8bba7;
+	border-radius: 10px;
+}
+
+.faq dt {
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+.faq dd {
+	margin-left: 1em;
+	margin-bottom: 1em;
+}
+
+details {
+	margin-bottom: 1em;
+	background-color: #fffaf3;
+	border: 1px dashed #c8bba7;
+	border-radius: 6px;
+	padding: 1em;
+}
+
+summary {
+	font-weight: bold;
+	cursor: pointer;
+	color: #4b3f2f;
+}
+
