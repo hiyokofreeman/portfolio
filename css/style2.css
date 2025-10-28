@@ -1,0 +1,565 @@
+@charset "utf-8";
+
+
+/*Google Fontsの読み込み
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* @import url('https://fonts.googleapis.com/css?family=Cinzel'); */
+
+
+body {
+	/* font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; */
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+	background-color: #fdfdfd;
+	color: #333;
+}
+
+/* 共通の背景スタイル */
+.bg-washi {
+	background-color: rgba(0, 0, 0, 0.5); /* 黒の半透明 */
+/*	background-image: url(../img/liquor000-0.png);	*/
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	color: #fff; /* 白文字に変更 */
+	min-height: 100%; /* 高さを確保 */
+}
+
+/* タイトルヘッダー */
+header {
+	padding: 2rem 1rem;
+}
+
+/* ナビゲーション */
+nav h2 {
+	font-weight: bold;
+}
+
+/* ナビゲーションリンクの色を白に */
+.nav-link {
+	color: #fff;
+	text-align: center;
+	display: block;
+	padding: 0.8em 0;
+	font-weight: bold;
+}
+
+.nav-link:hover {
+	text-decoration: underline;
+	color: #ffcc00; /* ホバー時に金色っぽく */
+}
+
+/* メインコンテンツの余白をなくす */
+.container-fluid {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/* 画像上にテキストを重ねるスタイル */
+.position-relative {
+	position: relative;
+}
+
+.custom-slider {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background-color: #fff;
+}
+
+.slide {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+	opacity: 1;
+	z-index: 1;
+}
+
+.slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: brightness(80%);
+}
+
+.overlay-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	color: #fff;
+	text-align: center;
+}
+
+/* テキストの見た目調整 */
+.overlay-text h3 {
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+	font-size: 1.8rem;
+	margin-bottom: 0.5rem;
+}
+
+.overlay-text p {
+	font-family: "MS Gothic", "Hiragino Kaku Gothic Pro", sans-serif;
+	font-size: 1.1rem;
+	margin: 0;
+}
+
+img {
+	filter: brightness(80%);
+}
+
+.overlay-text {
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.carousel-item.active .overlay-text {
+	opacity: 1;
+}
+
+@keyframes fadeIn {
+	to {
+		opacity: 1;
+	}
+}
+
+.carousel-item {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff; /* 白背景で切り替えの余韻を演出 */
+}
+
+.carousel-item img {
+	filter: brightness(80%);
+	object-fit: cover;
+	height: 100%;
+}
+
+.overlay-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	animation: fadeIn 2s ease-in-out forwards;
+	opacity: 0;
+}
+
+.carousel-item.active .overlay-text {
+	opacity: 1;
+}
+
+/*footerブロック
+---------------------------------------------------------------------------*/
+footer {
+	clear: both;
+	text-align: right;	/*右寄せ*/
+	padding-right: 3%;	/*右に空ける余白*/
+	padding-top: 40px;	/*上に空ける余白*/
+}
+.home footer {padding-top: 0px;}
+footer a {text-decoration: none;}
+footer .pr {display: block;}
+
+
+.back-prev {
+	text-align: left;
+	padding: 1rem;
+	background-color: #fdfaf6;
+}
+
+.back-prev a {
+	font-size: 0.9rem;
+	color: #5c3d2e;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.back-prev a:hover {
+	text-decoration: underline;
+	color: #a67c52;
+}
+
+.hero-section {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background-image: url(../img/liquor010-0.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.hero-overlay {
+	background-color: rgba(0, 0, 0, 0.4); /* 半透明の黒背景で文字を読みやすく */
+	padding: 2rem 3rem;
+	border-radius: 0.5rem;
+	text-align: center;
+	color: #fff;
+	max-width: 800px;
+}
+
+.hero-overlay h2 {
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+}
+
+.hero-overlay p {
+	font-family: "MS Gothic", "Hiragino Kaku Gothic Pro", sans-serif;
+	font-size: 1.3rem;
+	margin: 0;
+}
+
+.process-section {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.process-step {
+	display: flex;
+	align-items: center;
+	margin-bottom: 4rem;
+	flex-wrap: wrap;
+	padding: 1.5rem;
+	background-color: #fdfaf6; /* 和紙風の淡いベージュ */
+	border: 1px solid #e0dcd5; /* 優しい枠線 */
+	border-radius: 12px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+	transition: background-color 0.3s ease;
+}
+
+/* 共通スタイル */
+.process-step {
+	background-color: #f8f8f8;
+	border-radius: 12px;
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	text-align: center;
+}
+
+.step-label {
+	flex: 1 1 150px;
+	font-weight: bold;
+	font-size: 1.2rem;
+	color: #5c3d2e;
+}
+
+.step-image {
+	flex: 1 1 400px;
+	text-align: center;
+}
+
+.step-image img {
+	width: 100%;
+	height: auto;
+	max-width: 600px;
+	border-radius: 8px;
+}
+
+.step-text {
+	flex: 1 1 400px;
+	padding: 1rem;
+	font-size: 1rem;
+	line-height: 1.6;
+	color: #333;
+}
+
+/* ジグザグ配置（偶数ステップは逆順） */
+.step2, .step4, .step6 {
+	flex-direction: row-reverse;
+}
+
+.summary-section {
+	background-color: #fdfaf6; /* やさしい生成り色 */
+	text-align: center;
+	padding: 3rem 1rem;
+}
+
+.summary-image img {
+	width: 100%;
+	max-width: 1200px;
+	height: auto;
+	border-radius: 8px;
+	margin-bottom: 2rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.summary-content h2 {
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+	font-size: 2rem;
+	color: #5c3d2e;
+	margin-bottom: 1rem;
+}
+
+.summary-content p {
+	font-size: 1.1rem;
+	line-height: 1.8;
+	color: #444;
+	margin-bottom: 2rem;
+}
+
+.summary-button {
+	display: inline-block;
+	background-color: #a67c52;
+	color: #fff;
+	padding: 1rem 2rem;
+	font-size: 1.1rem;
+	border-radius: 6px;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+}
+
+.summary-button:hover {
+	background-color: #8c6239;
+}
+
+.access-section h2 {
+	font-size: 1.5rem;
+	color: #5c3d2e;
+}
+
+.access-section p,
+.access-section ul {
+	font-size: 1.1rem;
+	line-height: 1.8;
+	color: #333;
+}
+
+.map-container {
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.product-section h2 {
+	font-size: 1.8rem;
+	color: #5c3d2e;
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+}
+
+.product-card {
+	background-color: #fdfaf6;
+	border: 1px solid #e0dcd5;
+	border-radius: 12px;
+	padding: 1.5rem;
+	text-align: center;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+	transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	background-color: #f7f3ec;
+}
+
+.product-img {
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+}
+
+.product-card h3 {
+	font-size: 1.3rem;
+	color: #5c3d2e;
+	margin-bottom: 0.5rem;
+}
+
+.product-card p {
+	font-size: 1rem;
+	line-height: 1.6;
+	color: #333;
+	margin-bottom: 0.5rem;
+}
+
+.cart-button {
+	background-color: #a67c52;
+	color: #fff;
+	border: none;
+	padding: 0.6rem 1.2rem;
+	font-size: 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.cart-button:hover {
+	background-color: #8c6239;
+}
+
+.news-section h2 {
+	font-size: 1.8rem;
+	color: #5c3d2e;
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+}
+
+.news-card {
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #fdfaf6;
+	border: 1px solid #e0dcd5;
+	border-radius: 12px;
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.news-text {
+	flex: 1 1 300px;
+	padding-right: 1rem;
+}
+
+.news-text h3 {
+	font-size: 1.3rem;
+	color: #5c3d2e;
+	margin-bottom: 0.5rem;
+}
+
+.news-text p {
+	font-size: 1rem;
+	line-height: 1.6;
+	color: #333;
+}
+
+.news-img {
+	flex: 1 1 300px;
+	text-align: center;
+}
+
+.news-img img {
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	border-radius: 8px;
+}
+
+.contact-section h2 {
+	font-size: 1.8rem;
+	color: #5c3d2e;
+	font-family: "MS Mincho", "Hiragino Mincho Pro", serif;
+}
+
+.faq-block h3 {
+	font-size: 1.3rem;
+	color: #5c3d2e;
+	margin-bottom: 1rem;
+}
+
+.faq-block dt {
+	font-weight: bold;
+	margin-top: 1rem;
+	color: #333;
+}
+
+.faq-block dd {
+	margin-left: 1rem;
+	margin-bottom: 1rem;
+	color: #444;
+}
+
+.contact-form .form-label {
+	font-weight: bold;
+	color: #5c3d2e;
+}
+
+.contact-button {
+	background-color: #a67c52;
+	color: #fff;
+	border: none;
+	padding: 0.6rem 1.2rem;
+	font-size: 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+	background-color: #8c6239;
+}
+
+/* モバイル対応 */
+@media screen and (max-width: 768px) {
+	.process-step {
+		display: block;
+		width: 100%;
+		flex-direction: column;
+		text-align: center;
+		padding: clamp(0.5rem, 2vw, 1rem);
+		margin-bottom: clamp(1rem, 3vw, 2rem);
+		gap: 0.8rem; /* 要素間の余白を統一 */
+	}
+
+	.step-image {
+		margin-bottom: 0;
+		padding-bottom: 0; /* 念のため余白をゼロに */
+	}
+
+	.step-text {
+		font-size: 0.95rem;
+		line-height: 1.4;
+		padding: 0.3rem 0;
+	}
+
+	.step-image img {
+		width: 80%;
+		height: auto;
+		margin-bottom: 1rem;
+	}
+	.step-label {
+		font-weight: bold;
+		margin-top: 1rem;
+		color: #6c757d;
+	}
+	.news-card {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.news-text {
+		padding-right: 0;
+		margin-bottom: 1rem;
+	}
+
+}
+
+/* PC表示（2列グリッド） */
+@media (min-width: 769px) {
+	.process-section {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+	.process-step {
+		text-align: left;
+	}
+	.step-image img {
+		width: 100%;
+		height: auto;
+		margin-bottom: 1rem;
+	}
+}
+
