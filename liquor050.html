@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="はくしん酒造株式会社へのお問い合わせページ。商品や酒蔵見学、ご注文に関するご質問など、お気軽にご連絡ください。">
+	<meta name="keywords" content="はくしん酒造, お問い合わせ, 日本酒, 地酒, 新潟, 酒蔵見学, ご注文, 質問, 連絡先">
+	<meta name="author" content="ひよこふりーまん">
+
+	<!-- OGPタグ（SNS共有用） -->
+	<meta property="og:title" content="お問い合わせ | はくしん酒造株式会社">
+	<meta property="og:description" content="商品や酒蔵見学、ご注文に関するご相談はこちらから。はくしん酒造へのお問い合わせ窓口です。">
+	<meta property="og:image" content="https://example.com/img/ogp-contact.png"> <!-- 実際の画像URLに変更 -->
+	<meta property="og:url" content="https://example.com/contact000.html">
+	<meta property="og:type" content="website">
+	<title>お問い合わせ｜はくしん酒造株式会社</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style2.css" rel="stylesheet">
+</head>
+<body>
+
+	<!-- タイトルヘッダー -->
+	<header class="bg-washi text-white py-4 text-center">
+			<h1 class="display-5">はくしん酒造株式会社</h1>
+			<p class="lead">新潟の地酒と心を届ける蔵元</p>
+	</header>
+
+	<!-- ナビ＋メイン -->
+	<div class="container-fluid">
+		<div class="row min-vh-100">
+
+			<!-- 左側ナビゲーション -->
+			<nav class="col-md-3 bg-washi border-end py-4">
+				<ul class="nav flex-column px-3">
+					<li class="nav-item"><a class="nav-link" href="liquor000.html">ホーム</a></li>
+					<li class="nav-item"><a class="nav-link" href="liquor010.html">酒造りについて</a></li>
+					<li class="nav-item"><a class="nav-link" href="liquor020.html">アクセス</a></li>
+					<li class="nav-item"><a class="nav-link" href="liquor030.html">商品一覧</a></li>
+					<li class="nav-item"><a class="nav-link" href="liquor040.html">蔵元だより</a></li>
+					<li class="nav-item"><a class="nav-link" href="liquor050.html">お問い合わせ</a></li>
+				</ul>
+			</nav>
+
+			<main class="col-md-9 px-4 py-5">
+				<section class="contact-section">
+					<h2 class="mb-4">お問い合わせ</h2>
+
+					<!-- よくある質問 -->
+					<div class="faq-block mb-5">
+						<h3>よくあるご質問</h3>
+						<dl>
+							<dt>Q. 見学は可能ですか？</dt>
+							<dd>はい、事前予約制にて蔵見学を承っております。<br>ご希望の日時をお問い合わせフォームよりお知らせください。</dd>
+
+							<dt>Q. ネットで購入できますか？</dt>
+							<dd>現在は店頭販売のみとなっておりますが、今後オンライン販売も予定しております。<br>最新情報は「蔵元だより」ページにてご案内いたします。</dd>
+						</dl>
+					</div>
+
+					<!-- お問い合わせフォーム -->
+					<form class="contact-form">
+						<div class="mb-3">
+							<label for="name" class="form-label">お名前</label>
+							<input type="text" class="form-control" id="name" placeholder="例：酒井 太郎">
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">メールアドレス</label>
+							<input type="email" class="form-control" id="email" placeholder="例：taro@example.com">
+						</div>
+						<div class="mb-3">
+							<label for="message" class="form-label">お問い合わせ内容</label>
+							<textarea class="form-control" id="message" rows="5" placeholder="ご質問やご要望をご記入ください"></textarea>
+						</div>
+						<button type="submit" class="contact-button">送信する</button>
+					</form>
+				</section>
+			</main>
+
+		</div>
+	</div>
+
+	<!-- フッター -->
+	<footer class="footer bg-washi">
+		<p>&copy; 2025 はくしん酒造株式会社</p>
+	</footer>
+
+	<!-- bootstrapの読み込み -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
