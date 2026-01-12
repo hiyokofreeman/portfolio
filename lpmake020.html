@@ -6,7 +6,8 @@
 	<meta name="description" content="ラーメンも寿司もスマホで簡単注文！『いつでも出前Webサービス』は、人気メニューをあなたの食卓へ直行便。出前がもっと楽しくなる、便利で美味しい毎日を。">
 	<title>いつでも出前Webサービス</title>
 	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 	<style>
 	body {
 		font-family: 'Noto Sans JP', sans-serif;
@@ -168,11 +169,11 @@
 	</style>
 </head>
 <body>
-	<header class="hero">
+	<header class="hero" id="top">
 		<div class="hero-text">
 			<h1>🍽️ 今日のごちそう、スマホでひとつ。</h1>
 			<p>ラーメンも寿司も、あなたの食卓へ直行便。出前がもっと楽しくなる。</p>
-			<a href="#menu" class="cta-button">今すぐ注文する</a>
+			<button class="cta-button" onclick="scrollToOrderForm()">今すぐ注文する</button>
 		</div>
 	</header>
 	<!-- <div class="catch"> -->
@@ -220,26 +221,76 @@
 		}, 3000);
 	</script>
 
+	<section id="order-form" style="padding: 2em; background-color: #fffaf3;">
+		<h2 style="text-align: center; color: #d35400;">ご注文フォーム</h2>
+		<form onsubmit="return submitOrder(event)" style="max-width: 500px; margin: 0 auto;">
+			<div style="margin-bottom: 1em;">
+				<label for="name">お名前</label><br>
+				<input type="text" id="name" name="name" placeholder="例：山田 太郎" required style="width: 100%; padding: 8px;">
+			</div>
+			<div style="margin-bottom: 1em;">
+				<label for="address">お届け先住所</label><br>
+				<input type="text" id="address" name="address" placeholder="例：東京都新宿区..." required style="width: 100%; padding: 8px;">
+			</div>
+			<div style="margin-bottom: 1em;">
+				<label for="menu">ご注文メニュー</label><br>
+				<select id="menu" name="menu" required style="width: 100%; padding: 8px;">
+					<option value="">選択してください</option>
+					<option value="ramen">ラーメン</option>
+					<option value="sushi">寿司</option>
+					<option value="gyoza">餃子</option>
+					<option value="hamburg">ハンバーグ</option>
+				</select>
+			</div>
+			<div style="margin-bottom: 1em;">
+				<label for="note">備考（任意）</label><br>
+				<textarea id="note" name="note" rows="3" placeholder="例：ネギ抜き、辛さ控えめ、卵アレルギーなど" style="width: 100%; padding: 8px;"></textarea>
+			</div>
+			<button type="submit" class="cta-button">注文を送信</button>
+		</form>
+		<div id="order-thanks" style="display: none; margin-top: 1.5em; text-align: center; color: #e63946;">
+			ご注文ありがとうございます！ただいま準備中です 🍱<br><br>
+			<button type="button" class="cta-button" onclick="resetOrderForm()">最初に戻る</button>
+		</div>
+	</section>
+
 	<footer>
 		<p>&copy; いつでも出前Webサービス</p>
 	</footer>
 
 	<script>
-		const slides = document.querySelector('.slides');
-		const images = document.querySelectorAll('.slides img');
-		let index = 0;
+		function scrollToOrderForm() {
+			const formSection = document.getElementById('order-form');
+			if (formSection) {
+				formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				setTimeout(() => {
+					const nameInput = document.getElementById('name');
+					if (nameInput) nameInput.focus();
+				}, 600);
+			}
+		}
 
-		document.querySelector('.next').addEventListener('click', () => {
-			index = (index + 1) % images.length;
-			slides.style.transform = `translateX(-${400 * index}px)`;
-		});
+		function submitOrder(event) {
+			event.preventDefault();
+			document.querySelector('#order-form form').style.display = 'none';
+			document.getElementById('order-thanks').style.display = 'block';
+			return false;
+		}
 
-		document.querySelector('.prev').addEventListener('click', () => {
-			index = (index - 1 + images.length) % images.length;
-			slides.style.transform = `translateX(-${400 * index}px)`;
-		});
+		function resetOrderForm() {
+			const form = document.querySelector('#order-form form');
+			form.reset();
+			form.style.display = 'block';
+			document.getElementById('order-thanks').style.display = 'none';
+
+			// トップにスクロール
+			const top = document.getElementById('top');
+			if (top) {
+				top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}
 	</script>
-	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
-	<script src="js/bootstrap.bundle.min.js"></script>
+	<!-- JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
