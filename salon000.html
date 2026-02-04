@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ビューティーサロンフルマチ</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/salon.css" rel="stylesheet"> <!-- 修正済み：CSSフォルダ -->
+</head>
+<body>
+
+	<!-- ナビゲーションバー -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">ビューティーサロンフルマチ</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" href="salon000.html">トップ</a></li>
+					<li class="nav-item"><a class="nav-link" href="salon010.html">サービス</a></li>
+					<li class="nav-item"><a class="nav-link" href="salon020.html">スタッフ</a></li>
+					<li class="nav-item"><a class="nav-link" href="salon030.html">サロンについて</a></li>
+					<li class="nav-item"><a class="nav-link" href="salon040.html">アクセス</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- ヒーローセクション -->
+	<header class="hero">
+		<div class="hero-overlay">
+			<h1>Enhance Your Beauty</h1>
+			<p>あなたの美しさを引き出す、プロの施術を。</p>
+			<a href="#reservation" class="btn btn-light btn-lg mt-3">ご予約はこちら</a>
+		</div>
+	</header>
+
+	<!-- サービス紹介（仮） -->
+	<section id="services" class="py-5 bg-light">
+		<div class="container text-center">
+			<h2 class="mb-4">サービス</h2>
+			<div class="row">
+				<div class="col-md-4">
+					<h4>カット</h4>
+					<p>あなたに似合うスタイルをご提案</p>
+				</div>
+				<div class="col-md-4">
+					<h4>カラー</h4>
+					<p>髪質に合わせた美しいカラーリング</p>
+				</div>
+				<div class="col-md-4">
+					<h4>ネイル</h4>
+					<p>指先から美しさを演出</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- スタッフ紹介 -->
+	<section id="staff" class="py-5">
+		<div class="container text-center">
+			<h2 class="mb-4">スタッフ紹介</h2>
+			<div class="row">
+				<div class="col-md-4">
+					<img src="img/salon000-1.png" class="rounded-circle mb-3" alt="スタッフ1" width="150" height="150">
+					<h5>佐藤 美咲</h5>
+					<p>カット・スタイリング担当<br>「あなたの魅力を引き出します！」</p>
+				</div>
+				<div class="col-md-4">
+					<img src="img/salon000-2.png" class="rounded-circle mb-3" alt="スタッフ2" width="150" height="150">
+					<h5>田中 翔</h5>
+					<p>カラーリスト<br>「髪色で気分を変えてみませんか？」</p>
+				</div>
+				<div class="col-md-4">
+					<img src="img/salon000-3.png" class="rounded-circle mb-3" alt="スタッフ3" width="150" height="150">
+					<h5>中村 彩</h5>
+					<p>ネイリスト<br>「指先から美しさをお届けします」</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 予約フォーム -->
+	<section id="reservation" class="py-5 bg-light">
+		<div class="container">
+			<h2 class="text-center mb-4">ご予約フォーム</h2>
+
+			<!-- 追加：フォーム幅を整えるためのラッパー -->
+			<div class="form-wrapper mx-auto">
+
+				<form>
+					<div class="mb-3">
+						<label for="name" class="form-label">お名前</label>
+						<input type="text" class="form-control" id="name" required>
+					</div>
+					<div class="mb-3">
+						<label for="tel" class="form-label">電話番号</label>
+						<input type="tel" class="form-control" id="tel" required>
+					</div>
+					<div class="mb-3">
+						<label for="menu" class="form-label">ご希望のメニュー</label>
+						<select class="form-select" id="menu" required>
+							<option value="">選択してください</option>
+							<option>カット</option>
+							<option>カラー</option>
+							<option>ネイル</option>
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="date" class="form-label">ご希望日時</label>
+						<input type="datetime-local" class="form-control" id="date" required>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary">送信する</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- アクセス -->
+	<section id="contact" class="py-5">
+		<div class="container">
+			<h2 class="text-center mb-4">アクセス</h2>
+			<div class="ratio ratio-16x9">
+				<iframe src="https://maps.google.com/maps?q=新潟市中央区古町通&t=&z=15&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" frameborder="0"></iframe>
+			</div>
+		</div>
+	</section>
+
+	<!-- フッター -->
+	<footer class="bg-dark text-white text-center py-4">
+		<div class="container">
+			<p class="mb-1">〒951-8063 新潟県新潟市中央区古町通</p>
+			<p class="mb-1">営業時間：10:00〜19:00（火曜定休）</p>
+			<p class="mb-0">&copy; 2026 ビューティーサロンフルマチ</p>
+		</div>
+	</footer>
+	
+	<script>
+	document.querySelector("form").addEventListener("submit", function(e) {
+		e.preventDefault();
+
+		// 既存メッセージがあれば削除
+		const oldMsg = document.querySelector(".alert-success");
+		if (oldMsg) oldMsg.remove();
+
+		// メッセージ生成
+		const msg = document.createElement("div");
+		msg.className = "alert alert-success mt-3 fade-in";
+		msg.textContent = "ご予約内容を受け付けました。ありがとうございました。";
+
+		// フォームの下に追加
+		this.after(msg);
+
+		// 入力内容をリセット
+		this.reset();
+
+		// フォームの位置へスクロール（③）
+		const formTop = this.getBoundingClientRect().top + window.pageYOffset - 80;
+		window.scrollTo({ top: formTop, behavior: "smooth" });
+	});
+	</script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
