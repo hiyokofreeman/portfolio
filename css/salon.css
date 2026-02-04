@@ -1,0 +1,89 @@
+/* 共通設定 */
+body {
+	font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", sans-serif;
+	line-height: 1.6;
+	color: #333;
+	background-color: #fff;
+}
+
+/* ナビゲーションバー */
+.navbar-brand {
+	font-weight: bold;
+	font-size: 1.25rem;
+}
+
+/* ヒーローセクション */
+.hero {
+	background-image: url('../img/salon000-0.png'); /* 修正済み：imgフォルダ */
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	color: white;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+/* 以下略（他のスタイルはそのままでOK） */
+
+.hero-overlay {
+	background-color: rgba(0, 0, 0, 0.4);
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 1rem;
+}
+
+.hero h1 {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.hero p {
+	font-size: 1.25rem;
+}
+
+/* セクション共通 */
+section {
+	padding: 4rem 0;
+}
+
+section h2 {
+	font-weight: bold;
+	margin-bottom: 2rem;
+}
+
+/* 予約フォームの幅調整 */
+.form-wrapper {
+	max-width: 550px;   /* お好みで 480〜600px に調整可能 */
+	padding: 20px 25px;
+	background: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	font-size: 1.05rem;
+	font-weight: 600;
+}
+.btn-primary {
+	background-color: #d88ca0;
+	border-color: #d88ca0;
+}
+.btn-primary:hover {
+	background-color: #c67b90;
+	border-color: #c67b90;
+}
+.form-control, .form-select {
+	border-radius: 8px;
+}
+/* 成功メッセージのフェードイン */
+.fade-in {
+	opacity: 0;
+	animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+	to {
+		opacity: 1;
+	}
+}
+

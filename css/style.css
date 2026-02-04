@@ -487,6 +487,78 @@ input[type="submit"] {
 	margin-right: 12px;
 }
 
+.sample-list {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.sample-item {
+	width: 200px;
+	text-align: center;
+}
+
+.sample-thumb {
+	width: 100%;
+	height: 150px;			 /* ← 高さを固定 */
+	object-fit: cover;	 /* ← 比率を統一 */
+	display: block;
+}
+
+.sample-caption {
+	padding: 10px;
+	font-size: 1rem;
+	text-align: center;
+}
+.sample-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.sample-card {
+	width: 220px;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+	transition: transform 0.2s ease;
+}
+
+.sample-card:hover {
+	transform: translateY(-4px);
+}
+
+.sample-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+/* 更新情報リストの装飾 */
+.update-list li {
+	margin-bottom: 1.2em;	 /* 項目間の余白 */
+	line-height: 1.7;
+	list-style: none;			 /* デフォルトの丸を消す */
+	position: relative;
+	padding-left: 1.8em;		/* アイコン分の余白 */
+}
+
+/* アイコン */
+.update-list .icon {
+	position: absolute;
+	left: 0;
+	top: 0.2em;
+	font-size: 1.2em;
+}
+
+/* 日付を太字に */
+.update-list .date {
+	font-weight: bold;
+	color: #444;
+}
+
 /* スマートフォン向けCSS */
 @media (max-width: 767px) {
 	/* 全体 - ナビゲーション */
