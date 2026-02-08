@@ -559,6 +559,73 @@ input[type="submit"] {
 	color: #444;
 }
 
+/* サンプル画像のサイズ統一 */
+.sample-thumb {
+	width: 100% !important;
+	height: 200px !important;
+	object-fit: cover !important;
+	display: block;
+}
+
+.sample-thumb {
+	width: 100% !important;
+	height: 200px !important;
+	object-fit: cover !important;
+	display: block;
+}
+
+img.sample-thumb {
+	height: 200px !important;
+}
+
+ul.sample-list li.sample-card img.sample-thumb {
+	width: 100% !important;
+	height: 200px !important;
+	object-fit: cover !important;
+}
+
+.promo-banner-wrap {
+	text-align: center;
+	margin: 60px auto 40px;
+}
+
+.promo-banner-img {
+	max-width: 950px;
+	width: 100%;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.promo-banner-links {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+	flex-wrap: wrap;
+}
+
+.shop-link {
+	display: inline-block;
+	padding: 12px 28px;
+	border-radius: 6px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #fff;
+	font-size: 1rem;
+}
+
+.shop-link.base {
+	background-color: #2c7be5;
+}
+
+.shop-link.booth {
+	background-color: #e55381;
+}
+
+.shop-link:hover {
+	opacity: 0.85;
+}
+
 /* スマートフォン向けCSS */
 @media (max-width: 767px) {
 	/* 全体 - ナビゲーション */
