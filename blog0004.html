@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>レスポンシブデザインのチェックについて｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0004.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年4月5日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">レスポンシブデザインのチェックについて</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年4月5日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>1. はじめに</h3>
+				<p>
+					レスポンシブデザインの確認方法はいくつかありますが、まずは
+					<strong>ブラウザに標準で備わっている機能</strong> を使うのが最も手軽で確実です。<br>
+					ここでは、実務でよく使われる方法と、確認すべき画面幅の基準をまとめます。
+				</p>
+
+				<h3>2. 🧰 ブラウザの標準機能（最も手軽）</h3>
+				<p>最も確実で、今すぐ使える方法です。</p>
+
+				<h4>● Google Chrome デベロッパーツール</h4>
+				<ol>
+					<li>チェックしたいページを開き、<strong>F12 キー</strong>を押します。</li>
+					<li>左上の <strong>「デバイスツールバーの切り替え」アイコン</strong>（スマホとタブレットのマーク）をクリックします。</li>
+					<li>画面上部で <strong>iPhone や Pixel などの機種名を選択</strong>したり、端をドラッグして <strong>自由にサイズを変更</strong>できます。</li>
+				</ol>
+
+				<p><strong>メリット</strong></p>
+				<ul>
+					<li>無料</li>
+					<li>インストール不要</li>
+					<li>ホバー（マウスオーバー）やクリックの挙動も確認できる</li>
+				</ul>
+
+				<h3>3. 📐 確認すべき画面幅は“3カテゴリだけ”で十分</h3>
+				<p>
+					レスポンシブデザインの確認は、すべてのデバイスをチェックする必要はありません。<br>
+					実務では <strong>「PC・タブレット・スマホ」</strong> の3カテゴリを押さえれば十分です。
+				</p>
+
+				<h4>● 各ブラウザで共通して確認すべき幅</h4>
+				<ul>
+					<li><strong>PC：1280〜1440px</strong></li>
+					<li><strong>タブレット：768〜820px（iPad相当）</strong></li>
+					<li><strong>スマホ：375〜430px（iPhone・Pixel・Galaxy の標準幅）</strong></li>
+				</ul>
+
+				<p>
+					Chrome・Firefox・Edge のどれを使っても、上記の幅を指定すれば
+					<strong>ほぼ同じ結果</strong> が得られます。
+				</p>
+
+				<h3>4. 🖼 実際の操作例（画像の説明）</h3>
+				<p>
+					下の画像のように、Chrome のデバイスモードで<br>
+					<strong>「400 × 642」</strong> など、確認したいサイズに変更してチェックします。
+				</p>
+				<img src="img/blog00041.png" alt="Chrome のデバイスモードの画像" style="max-width: 100%; height: auto;">
+
+				<h3>5. 🌐 オンラインのシミュレーションツール</h3>
+				<p>URL を入力するだけで、複数デバイスでの見え方を一覧で確認できます。</p>
+
+				<ul>
+					<li>
+						<strong>Responsive Design Checker</strong><br>
+						デスクトップ、タブレット、スマホの主要サイズをまとめて確認できます。
+					</li>
+					<li>
+						<strong>Designmodo Responsive Test</strong><br>
+						特定のピクセルサイズを入力して、より詳細に検証できます。
+					</li>
+				</ul>
+
+				<p>こちらは研究用・補助的なツールとして使うのがおすすめです。</p>
+
+				<h3>📝 まとめ</h3>
+				<ul>
+					<li>まずは <strong>ブラウザ標準のデベロッパーツール</strong>で確認するのが最も確実</li>
+					<li>チェックすべきは <strong>PC・タブレット・スマホの3カテゴリ</strong></li>
+					<li>幅の基準を押さえれば、全デバイスを確認する必要はない</li>
+					<li>オンラインツールは補助的に使うと便利</li>
+				</ul>
+
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（後で追加可能） -->
+			<div class="article-nav">
+				<a href="blog0003.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

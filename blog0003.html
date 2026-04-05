@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Web制作でよく使う便利ツールまとめ― 画像作成から圧縮まで、実務で役立つワークフロー｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0003.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年3月29日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Web制作でよく使う便利ツールまとめ― 画像作成から圧縮まで、実務で役立つワークフロー</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年3月29日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>1. はじめに</h3>
+				<p>
+					Web制作では、画像の準備ひとつとっても「探す → 作る → 整える → 軽量化する」という工程があります。<br>
+					この記事では、私が実際の制作で使っている便利ツールを、用途別に紹介します。
+				</p>
+
+				<h3>2. フリー画像を探すときに使うサイト</h3>
+				<p>
+					<br>🔍 O-DAN<br>
+					複数のフリー素材サイトを横断検索できる便利サービス。<br>
+					ただし、O-DAN は検索サイトであって、画像提供元ではないため、再配布可能かどうかは必ず元サイトで確認する必要があります。<br>
+					特に注意すべき点：<br>
+					- Unsplash / Pixabay / Pexels → 再配布OK（テンプレートに含めてもOK）<br>
+					- 写真AC / ぱくたそ → 再配布NG（テンプレートに含めるのは不可）<br>
+					👉 テンプレート販売をする人は必ずチェックすべきポイント。
+				</p>
+
+				<h3>3. 画像を自分で作りたいときのツール</h3>
+				<p>
+					<br>🎨 Canva<br>
+					直感的に使えるデザインツール。<br>
+					SNS用画像、バナー、アイキャッチなどを素早く作れる。<br>
+					テンプレートが豊富で、初心者でもプロっぽい仕上がりに。<br>
+
+					<br><span class="tool-icon gemini"></span>Gemini<br>
+					柔らかい雰囲気のイラストや、説明用の図解が得意。<br>
+
+					<br><span class="tool-icon copilot"></span>Copilot<br>
+					構図の指定や、用途に合わせた画像生成がしやすい。<br>
+					「ブログのアイキャッチ」「Web制作の説明図」など、用途を伝えると最適な画像を作りやすいのが強み。
+				</p>
+
+				<h3>4. 画像サイズを整える（実務で必須の工程）</h3>
+				<p>
+					<br>✏ ペイント（Windows標準）<br>
+					- 画像のトリミング<br>
+					- リサイズ（例：1000×800 など）<br>
+					- 形式変換（PNG → JPG など）<br>
+					シンプルだけど、実務では一番使うツール。
+				</p>
+
+				<h3>5. 画像を軽量化する（サイト高速化のために必須）</h3>
+				<p>
+					<br>🐼 TinyPNG<br>
+					PNG・JPG・WebP を高品質のまま圧縮できる定番ツール。<br>
+					- 画像が軽くなる<br>
+					- 表示速度が上がる<br>
+					- SEOにもプラス<br>
+					👉 Web制作では、最終的に必ず通すべき工程。
+				</p>
+
+				<h3>実務での使い分け</h3>
+				<p>
+					画像探し：O-DAN<br>
+					アイキャッチ作成：Canva<br>
+					説明図：Copilot / Gemini<br>
+					サイズ調整：ペイント<br>
+					圧縮：TinyPNG
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					この記事で紹介したツールを組み合わせると、画像制作の流れがとてもスムーズになります。<br>
+					探す → 作る → 整える → 軽量化する<br>
+					この4ステップを押さえておけば、どんなサイトでも安定した品質で画像を扱えます。
+				</p>
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0002.html">← 前の記事</a>
+				<a href="blog0004.html" class="next">次の記事 →</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
