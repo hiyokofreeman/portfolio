@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラ資産をCOBOLへ変換する際に直面する「1バイト問題」を実務経験から解説。PIC・USAGEの違い、COMP-5の落としどころを丁寧にまとめています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化 〜アセンブラ ☞ COBOL 変換編①〜｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="keyvisual">
+		<img src="img/blog0005.png" alt="アセンブラからCOBOLへの変換を解説する技術ブログのアイキャッチ" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年4月13日</p>
+	</div>
+
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化 〜アセンブラ ☞ COBOL 変換編①〜</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年4月13日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+				メインフレームのオープン化やモダナイゼーションに伴い、アセンブラ資産を COBOL に変換する現場が増えてきました。<br>
+				ところが、アセンブラから COBOL への変換では、「アセンブラでは当然だった前提が、COBOLでは成り立たない」という問題に直面します。<br>
+				その代表例が「1バイトの扱い」です。本記事では、アセンブラにおける 1バイト（16進 00～FF）を COBOL ではどう扱うべきか、実体験ベースでまとめます。
+				</p>
+
+				<h3>アセンブラにおける「1バイト」の世界</h3>
+				<p>
+				アセンブラにおいて 1バイトは、<br>
+				16進：00 ～ FF<br>
+				10進：0 ～ 255<br>
+				という完全な数値範囲として自然に扱えます。
+				</p>
+
+				<ul>
+					<li>IC / STC：ロード・ストア</li>
+					<li>A / AH / S：数値加減算</li>
+					<li>CLI：直接比較</li>
+					<li>ビット単位のマスクも容易</li>
+				</ul>
+
+				<p>つまり、1バイト＝符号なし整数という前提でロジックが組まれているケースは珍しくありません。</p>
+
+				<h3>COBOLで1バイト定義が難しい理由</h3>
+
+				<p>まず直感的に定義しようとすると、次の罠にハマります。</p>
+
+				<pre><code>01 WS-BYTE PIC 9.</code></pre>
+				<p>→ これは「1桁の数字」であり、0～9 しか表現できません。</p>
+
+				<pre><code>01 WS-BYTE PIC X.</code></pre>
+				<p>→ これは 1バイトですが文字型であり、数値演算はできません。</p>
+
+				<p>
+				つまり DISPLAY（ゾーン）形式では、アセンブラの 1バイト数値（00～FF）を再現できません。
+				</p>
+
+				<h3>COMP-5 を使えば 1バイトになる？</h3>
+
+				<p>次に思いつくのが COMP 系の利用です。</p>
+
+				<pre><code>01 WS-BYTE PIC S9(3) COMP-5.</code></pre>
+
+				<p>
+				見た目は 0～255 を扱えそうですが、実際には 2バイト確保されます。これは正しい挙動です。
+				</p>
+
+				<p>
+				999 (10進) = 03E7 (16進) は 9ビット以上であり、1バイト（8ビット）には収まりません。<br>
+				COBOL では PIC（表現可能範囲）と USAGE（内部表現）が厳密に分かれており、PIC S9(3) とした時点で最低 2バイトが必要になります。
+				</p>
+
+				<p>
+				結論：COBOLには「符号なし1バイト整数（0～255）」に完全一致する型は存在しません。
+				</p>
+
+				<h3>実務での落としどころ：PIC S9(3) COMP-5（2バイト）</h3>
+
+				<p>現場で最も現実的な解がこれです。</p>
+
+				<pre><code>01 WS-BYTE PIC S9(3) COMP-5.</code></pre>
+
+				<ul>
+					<li>表現範囲：-999 ～ +999</li>
+					<li>実用範囲：0～255 として使用</li>
+					<li>内部表現：バイナリ</li>
+					<li>サイズ：2バイト</li>
+					<li>計算しやすく、処理系依存も少ない</li>
+				</ul>
+
+				<p>
+				アセンブラ：1バイト、COBOL：2バイトという差は生じますが、モダナイゼーション案件ではレコードレイアウトの完全一致よりも、ロジックの正確な再現性・保守性が優先されます。
+				</p>
+
+				<h3>まとめ</h3>
+
+				<p>
+				アセンブラから COBOL への変換で、1バイトの扱いは最初の大きな分岐点になります。<br>
+				ポイントを整理すると：
+				</p>
+
+				<ul>
+					<li>アセンブラの 1バイト（0～255）は DISPLAY 型では再現不可</li>
+					<li>COBOL には符号なし1バイト整数が存在しない</li>
+					<li>PIC S9(3) COMP-5 は 2バイトになるが、実務では最適解</li>
+				</ul>
+
+				<p>
+				「完全一致」を狙うと行き止まりになりますが、「意味を合わせる」ことで前に進める。<br>
+				これが、アセンブラ ☞ COBOL 変換の第一歩だと感じています。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0004.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
