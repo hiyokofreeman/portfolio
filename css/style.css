@@ -626,6 +626,24 @@ ul.sample-list li.sample-card img.sample-thumb {
 	opacity: 0.85;
 }
 
+/* コードブロックのスマホ最適化 */
+.article-body pre {
+	background: #f7f7f7;
+	padding: 12px;
+	border-radius: 6px;
+	overflow-x: auto;
+	font-size: 14px;
+	line-height: 1.5;
+	white-space: pre-wrap;	 /* ← 折り返しを許可 */
+	word-break: break-word;	/* ← 長いURLも折り返す */
+}
+.article-body pre code {
+	color: #333;
+}
+.article-body pre {
+	margin: 20px 0;
+}
+
 /* スマートフォン向けCSS */
 @media (max-width: 767px) {
 	/* 全体 - ナビゲーション */
