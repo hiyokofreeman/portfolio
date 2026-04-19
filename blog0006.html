@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="静的サイトにGoogleフォームを使ってお問い合わせフォームを設置する方法を解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>静的サイトにお問い合わせフォームを付ける方法（Googleフォーム活用）｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0006.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年4月19日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">静的サイトにお問い合わせフォームを付ける方法（Googleフォーム活用）</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年4月19日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					静的HTMLのサイトにお問い合わせフォームを設置する場合、Googleフォームを使うと
+					<strong>サーバー設定なし・メール設定なし</strong> で簡単に実装できます。<br>
+					実際に使ってみたところ、「名刺代わりのホームページ」用途であれば十分に実用的だと感じました。
+				</p>
+
+				<h3>STEP① Googleフォームを開く</h3>
+				<p>
+					以下のどちらかの方法で Googleフォームを開きます。<br>
+					・ブラウザで「Google フォーム」と検索<br>
+					・直接アクセス：<a href="https://forms.google.com" target="_blank">https://forms.google.com</a><br>
+					Googleアカウントにログインしていない場合は、ログイン画面が表示されます。
+				</p>
+
+				<h3>STEP② 空白のフォームを作成</h3>
+				<p>
+					表示された画面で「＋」→「空白」をクリックします。<br>
+					新しいフォーム編集画面が開きます。
+				</p>
+
+				<h3>STEP③ フォームの基本情報を設定</h3>
+				<p>
+					<strong>① フォームのタイトル</strong><br>
+					左上の「無題のフォーム」をクリックして「お問い合わせフォーム」に変更します。
+				</p>
+				<p>
+					<strong>② 説明文（任意）</strong><br>
+					タイトル下の説明欄に「下記フォームよりお気軽にお問い合わせください。」と入力します。<br>
+					説明文は省略しても問題ありません。
+				</p>
+
+				<h3>STEP④ 必要な質問項目を作成（重要）</h3>
+				<p>
+					<strong>① お名前</strong><br>
+					質問文：お名前／種類：記述式（短文）／必須ON
+				</p>
+				<p>
+					<strong>② メールアドレス</strong><br>
+					「＋」で追加 → 質問文：メールアドレス／種類：記述式（短文）／必須ON<br>
+					右下の「︙」→「回答の検証」→「メールアドレス」にすると入力ミス防止になります。
+				</p>
+				<p>
+					<strong>③ お問い合わせ内容</strong><br>
+					「＋」で追加 → 質問文：お問い合わせ内容／種類：段落／必須ON
+				</p>
+
+				<h3>STEP⑤ 送信後メッセージを設定（地味に大事）</h3>
+				<p>
+					上部「設定」タブの表示設定へ。<br>
+					送信後の確認メッセージ：<br>
+					<strong>お問い合わせありがとうございます。内容を確認後、折り返しご連絡いたします。</strong>
+				</p>
+				<p>
+					上部「設定」タブでは以下を確認します。<br>
+					・メールアドレスを収集 → 収集しない<br>
+					・回答のコピーを回答者に送信 → オフ
+				</p>
+
+				<h3>STEP⑥ メール通知の設定（必須）</h3>
+				<p>
+					1. 上部「回答」タブをクリック<br>
+					2. 緑のスプレッドシートアイコン → 新規作成<br>
+					3. 右上の「︙」→「新しい回答について通知を受け取る」をON<br>
+					これでフォーム送信のたびにメール通知が届くようになります。
+				</p>
+
+				<h3>STEP⑦ 実際に送信テストをする（絶対やる）</h3>
+				<p>
+					Googleフォームの「👁（プレビュー）」では送信ができないため、<br>
+					<strong>実際にサイトへ設置したリンク（または埋め込みフォーム）からテスト送信</strong> します。<br>
+					・自分の名前<br>
+					・自分のメールアドレス<br>
+					・お問い合わせ内容<br>
+					を入力して送信し、以下を確認します。<br>
+					・通知メールが届く<br>
+					・Googleフォームの「回答」タブに内容が保存されている<br>
+					この2点が確認できれば、フォームは正常に動作しています。
+				</p>
+
+				<h3>STEP⑧ サイトに設置する（2パターン）</h3>
+				<p>
+					<strong>方法A：リンク形式（最も簡単）</strong><br>
+					右上【送信】→ 🔗リンクマーク → URLコピー
+				</p>
+
+				<pre><code>&lt;a href="https://docs.google.com/forms/xxxxxx" target="_blank"&gt;
+					お問い合わせはこちら
+					&lt;/a&gt;
+					</code></pre>
+
+				<p>
+					<strong>方法B：埋め込み（おすすめ）</strong><br>
+					右上【送信】→「&lt; &gt;」アイコン → iframeコードをコピー
+				</p>
+
+				<pre><code>&lt;iframe 
+					src="https://docs.google.com/forms/xxxxxx" 
+					width="100%" 
+					height="800" 
+					frameborder="0"&gt;
+					&lt;/iframe&gt;
+					</code></pre>
+
+				<p>
+					height は実際の表示に合わせて調整できます。CSSで中央寄せも可能です。
+				</p>
+
+				<p style="margin: 20px 0;">
+					<strong>デモフォームはこちらから実際に動作を確認できます：</strong><br>
+					<a href="https://docs.google.com/forms/d/e/1FAIpQLSddttV-cndFA0B-UeHfR_kbaKR9skYXMnkW6ubWV2rKYqpbuQ/viewform?usp=publish-editor"
+						 target="_blank"
+						 style="display:inline-block; padding:10px 20px; background:#4CAF50; color:#fff; text-decoration:none; border-radius:5px;">
+						デモフォームを開く
+					</a>
+				</p>
+
+				<h3>よくある疑問</h3>
+				<p>
+					<strong>Q. メールはどこに届く？</strong><br>
+					→ 通知設定をONにした Googleアカウントのメールに届きます。
+				</p>
+				<p>
+					<strong>Q. サーバーは必要？</strong><br>
+					→ 不要です。静的サイトと Googleフォームは非常に相性が良いです。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					静的サイトにお問い合わせフォームを追加する場合、Googleフォームを使えば
+					<strong>サーバー不要・設定も簡単</strong> で、個人サイトや名刺代わりのホームページには十分な機能を備えています。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0005.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
