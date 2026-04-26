@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラからCOBOLへの変換における添え字・部分参照の落とし穴について、実際の疎通確認試験の事例を交えて解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編②～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0007.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年4月26日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編②～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年4月26日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					メインフレームのオープン化に伴い、アセンブラで書かれていた資産を COBOL に変換する作業に携わる中で、言語仕様の“当たり前”の違いが想定外の不具合につながる場面を経験した。
+				</p>
+				<p>
+					今回はその中でも、<strong>「配列の添え字」と「変数の部分参照が 1 から始まる」</strong>という COBOL の特徴が、アセンブラや C 言語経験者にとってどれほど落とし穴になりやすいかを、実際の疎通確認試験での事例を交えて紹介したい。
+				</p>
+
+				<h3>COBOL の添え字・部分参照は 1 始まり</h3>
+				<p>
+					COBOL 言語では、配列（OCCURS）の添え字や文字列の部分参照の開始位置が<strong>1 から数える</strong>という仕様になっている。
+				</p>
+				<p>
+					これは COBOL を主戦場としてきた人には当然の前提だが、アセンブラや C 言語で開発してきた人間にとっては強い違和感がある。違いは次のようになる。
+				</p>
+
+				<!-- 比較テーブル -->
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>観点</th>
+							<th>アセンブラ / C</th>
+							<th>COBOL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>添え字の基準</td>
+							<td>0 始まり</td>
+							<td>1 始まり</td>
+						</tr>
+						<tr>
+							<td>発想</td>
+							<td>メモリアドレス</td>
+							<td>論理項目</td>
+						</tr>
+						<tr>
+							<td>文字列参照</td>
+							<td>オフセット指定</td>
+							<td>開始位置＋長さ</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p>
+					頭では理解していても、無意識に「0 始まり」で考えてしまうのが経験者の性だ。
+				</p>
+
+				<h3>疎通確認試験で発覚した問題</h3>
+				<p>
+					実際の疎通確認試験において、入力ファイルの項目に「キー開始位置」が存在していた。この値はアセンブラ時代の仕様を踏襲しており、<strong>0 が設定されるケースがある</strong>設計だった。
+				</p>
+				<p>
+					COBOL プログラム側でこの値をそのまま部分参照の開始位置として使用したところ、
+				</p>
+				<ul>
+					<li>キー開始位置 = 0 → COBOL では参照範囲外</li>
+					<li>キー開始位置 ≥ 1 → 一見、正常動作しているように見える</li>
+				</ul>
+				<p>
+					特に厄介なのは、<strong>0 以外の値ではエラーにならず、正しく動いているように見える点</strong>だ。
+				</p>
+
+				<h3>原因と対策</h3>
+				<p>
+					原因は単純で、
+				</p>
+				<ul>
+					<li>アセンブラ（あるいは C）的な「0 始まり」の発想</li>
+					<li>COBOL の「1 始まり」の部分参照仕様</li>
+				</ul>
+				<p>
+					が噛み合っていなかったことにある。
+				</p>
+				<p>
+					対策としては、入力項目の「キー開始位置」に<strong>＋1</strong>してから部分参照に使用するよう修正した。
+				</p>
+
+				<h3>水平展開の重要性</h3>
+				<p>
+					この修正を行ったあと、「同様の箇所が他にも存在するのではないか」という観点で水平展開を実施した。
+				</p>
+				<p>
+					結果として、開始位置・オフセット・長さ指定といった項目を使った処理が複数箇所見つかり、同様の修正を施すことになった。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					アセンブラから COBOL への変換においては、ロジックの変換や文法の置き換え以上に、<strong>「数え方の前提」そのものが違う</strong>ことを強く意識する必要がある。
+				</p>
+				<p>
+					特に添え字や部分参照の開始位置は、<strong>0 始まりか？1 始まりか？</strong>を明示的に疑うクセを付けないと、今回のような見えにくい不具合を生みやすい。
+				</p>
+				<p>
+					「COBOL は人間寄り、C は機械寄り」。この違いを理解した上でコードを読むことが、メインフレーム資産のオープン化を成功させるための重要なポイントだと感じた。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（必要に応じて編集） -->
+			<div class="article-nav">
+				<a href="blog0006.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
