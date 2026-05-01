@@ -644,6 +644,66 @@ ul.sample-list li.sample-card img.sample-thumb {
 	margin: 20px 0;
 }
 
+/* ブログ本文の行間と段落余白 */
+.blog-article .article-body p {
+	line-height: 1.9;		  /* 行間を広げて読みやすく */
+	margin-bottom: 1.4em;	  /* 段落間の余白を統一 */
+}
+
+/* 箇条書き風の「-」を使っている段落も読みやすく */
+.blog-article .article-body p br {
+	margin-bottom: 0.8em;
+}
+
+/* 見出し（h3）のメリハリ */
+.blog-article .article-body h3 {
+	margin-top: 2.4em;		 /* 見出し前の余白を広めに */
+	margin-bottom: 1em;		/* 見出し後の余白 */
+	font-weight: bold;
+}
+
+/* 画像の上下余白 */
+.blog-article .article-body img {
+	margin: 1.6em 0;
+}
+
+.blog-page .blog-article h2 {
+	font-size: 24px;
+	font-weight: bold;
+	color: #3f5170;
+	border-left: 6px solid #3f5170;
+	background-color: #f0f4fa;
+	padding: 8px 12px;
+	margin-top: 2.8em;
+	margin-bottom: 1.4em;
+	border-radius: 4px;
+}
+
+.blog-page .blog-article h3 {
+	font-size: 22px;
+	font-weight: bold;
+	color: #3f5170;
+	border-bottom: 2px dotted #3f5170;
+	padding-bottom: 6px;
+	margin-top: 2.4em;
+	margin-bottom: 1em;
+}
+
+.blog-page .blog-article .img-caption {
+	font-size: 0.95em;
+	color: #555;
+	text-align: center;
+	margin-top: 0.5em;
+	margin-bottom: 1.6em;
+	font-style: italic;
+}
+
+.blog-page .blog-article {
+	max-width: 760px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
 /* スマートフォン向けCSS */
 @media (max-width: 767px) {
 	/* 全体 - ナビゲーション */
