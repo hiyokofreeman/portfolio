@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Grid を使ってポートフォリオを劇的改善！カード型レイアウトで見やすさが一気に向上した話｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0008.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年5月3日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Grid を使ってポートフォリオを劇的改善！カード型レイアウトで見やすさが一気に向上した話</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年5月3日</span>
+			</div>
+
+			<section class="article-body">
+				<h3>はじめに</h3>
+				<p>
+				ポートフォリオページは、自分のスキルや実績を伝える大切な場所です。<br>
+				しかし、情報をただ縦に並べただけでは、どうしても「読みにくい」「伝わりにくい」ページになりがちです。
+				</p>
+
+				<p>
+				今回、私のポートフォリオページもまさにその状態でした。
+				</p>
+
+				<p>
+				- 制作実績が箇条書きで縦にズラッと並んでいる<br>
+				- 情報量が多く、どこに何があるか分かりづらい<br>
+				- スマホではさらに読みづらい
+				</p>
+
+				<p>
+				そこで、 Bootstrap の Grid システムを使って、制作実績をカード型レイアウトに刷新したところ、<br>
+				見た目も使いやすさも劇的に改善しました。
+				</p>
+
+				<p>
+				この記事では、改善前 → 改善後の比較と、実際に使った Grid のコード例を紹介します。
+				</p>
+
+				<h3>改善前：縦に長い箇条書きで読みづらい構成</h3>
+
+
+				<p>
+				以前の制作実績は、以下のように `&lt;ol&gt;` の箇条書きで並んでいました。
+				</p>
+
+				<p>
+				- 情報量が多くて縦に長い<br>
+				- 各項目の構造がバラバラ<br>
+				- スマホでは特に読みづらい
+				</p>
+
+				<img src="img/blog00083.png" alt="改善前の画像">
+				<p class="img-caption">▲ 改善前：情報が縦に並んで読みづらい構成</p>
+
+				<h3>改善後：Grid＋カード型で一覧性が大幅に向上</h3>
+
+
+				<p>
+				Bootstrap の Grid システムを使い、制作実績を 1 → 2 → 3 列に自動切り替えされるカード型に変更しました。
+				</p>
+
+				<p>
+				- PC：3列<br>
+				- タブレット：2列<br>
+				- スマホ：1列
+				</p>
+
+				<p>
+				カードの高さも揃い、タイトル・説明・使用技術・ボタンの構造を統一したことで、<br>
+				プロのポートフォリオのような統一感が生まれました。
+				</p>
+
+				<img src="img/blog00084.png" alt="改善後の画像">
+				<p class="img-caption">▲ 改善後：カード型レイアウトで一覧性が大幅に向上</p>
+
+				<h3>実際に使った Grid のコード</h3>
+
+				<p>
+				今回の改善で使ったのは、Bootstrap の以下のクラスです。
+				</p>
+
+				<p>
+				- `row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4`<br>
+				- `col`	<br>
+				- `card h-100`	
+				</p>
+
+				<p>
+				これだけで、レスポンシブ対応のカードレイアウトが簡単に作れます。
+				</p>
+
+				<p>
+				以下は実際に使用したコードの一部です。
+				</p>
+
+				<pre><code>&lt;div class=&quot;row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4&quot;&gt;<br>
+					&lt;div class=&quot;col&quot;&gt;<br>
+						&lt;div class=&quot;card h-100&quot;&gt;<br>
+							&lt;div class=&quot;card-body&quot;&gt;<br>
+								&lt;h5 class=&quot;card-title&quot;&gt;株式会社ファンタジア｜コーポレートサイト&lt;/h5&gt;<br>
+								&lt;p class=&quot;card-text&quot;&gt;<br>
+									架空企業のコーポレートサイト。&lt;br&gt;<br>
+									使用技術：HTML / CSS / Bootstrap&lt;br&gt;<br>
+									特徴：トップページ、事業内容、問い合わせフォーム<br>
+								&lt;/p&gt;<br>
+								&lt;a href=&quot;corporate000.html&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;サイトを見る&lt;/a&gt;<br>
+							&lt;/div&gt;<br>
+						&lt;/div&gt;<br>
+					&lt;/div&gt;<br>
+				&lt;/div&gt;
+					</code></pre>
+
+				<h3>Grid 化で得られたメリット</h3>
+
+
+				<p>
+				今回の改善で感じたメリットは以下の通りです。
+				</p>
+
+				<p>
+				- 一覧性が大幅に向上<br>
+				- カードの高さが揃い、見た目が美しい<br>
+				- スマホでも読みやすいレイアウトに<br>
+				- 情報の構造が統一され、伝わりやすくなった<br>
+				- Bootstrap の Grid はコードがシンプルで扱いやすい
+				</p>
+
+				<p>
+				特に、「カードの高さが揃う」というのは視覚的な印象に大きく影響します。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+				今回、ポートフォリオの制作実績を Bootstrap の Grid システム＋カード型レイアウトに変更したことで、<br>
+				ページ全体の見やすさと統一感が大きく向上しました。<br>
+				Grid は難しそうに見えて、実際は数行のクラスを追加するだけでレスポンシブ対応の美しいレイアウトが作れます。<br>
+				ポートフォリオを改善したい方には、まず制作実績の Grid 化を強くおすすめします。
+				</p>
+
+				<p>
+				次回は、スキルセットやプロフィール部分のレイアウト改善にも取り組んでいきたいと思います。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（後で追加可能） -->
+			<div class="article-nav">
+				<a href="blog0007.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
