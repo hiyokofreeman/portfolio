@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラからCOBOLへの変換で直面する思考の転換について解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編③～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0009.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年5月10日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編③～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年5月10日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					メインフレームのオープン化対応において、アセンブラからCOBOLへの変換作業は避けて通れないテーマです。
+					単に「文法を置き換える」だけで済めばよいのですが、実際の現場ではそう簡単にはいきません。
+				</p>
+				<p>
+					今回の変換作業で特に強く感じたのは、アセンブラ特有の「レジスタ思考」から、
+					COBOLの「変数（レコード）思考」へ切り替えることが最大の難所であるという点でした。
+					この記事では、構造化データ（レコード配列）のアクセス処理を例に、
+					ASM→COBOL変換で直面した“思考の転換”についてまとめます。
+				</p>
+
+				<h3>アセンブラにおけるデータアクセスの考え方</h3>
+				<p>
+					アセンブラでは、構造化されたデータであっても最終的にはメモリ上の並びとして扱います。
+					今回の変換対象では、以下のような実装が多く見られました。
+				</p>
+
+				<ul>
+					<li>構造体（レコード相当）の配列</li>
+					<li>構造体サイズは256バイト固定</li>
+					<li>レジスタに配列先頭アドレスを設定</li>
+					<li>項目アクセスは「レジスタ + オフセット」</li>
+					<li>次の要素へは「レジスタに256を加算」</li>
+				</ul>
+
+				<p>概念的な ASM の例を示すと、次のようになります。</p>
+
+				<pre><code>* ASM（概念例）
+LA   R1,AREA		 ; 先頭アドレス
+L	R2,0(R1)		; 項目A
+L	R3,4(R1)		; 項目B
+LA   R1,256		  ; 次のレコードへ
+</code></pre>
+
+				<p>
+					このように、アセンブラでは常に「このレジスタはいまどこを指しているのか」「次の要素に行くには何バイト足せばよいか」という、
+					アドレス演算中心の“機械寄りの思考”が求められます。
+				</p>
+
+				<h3>COBOLにおけるデータアクセスの考え方</h3>
+				<p>
+					一方、COBOLではアドレス計算を意識する必要はほとんどありません。
+					データはレコードとして定義され、配列は OCCURS 句で表現されます。
+				</p>
+
+				<pre><code>* COBOL（概念例）
+MOVE AREA(I).A TO ...
+MOVE AREA(I).B TO ...
+ADD 1 TO I
+</code></pre>
+
+				<p>
+					COBOLでは「何番目の論理レコードか」を扱うため、レコードサイズやバイトオフセットを意識する必要がありません。
+					アセンブラでの「+256バイト」は、COBOLでは単に「添え字 +1」に置き換わります。
+				</p>
+
+				<h3>アセンブラ思考とCOBOL思考の比較</h3>
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>観点</th>
+							<th>アセンブラ</th>
+							<th>COBOL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>データの捉え方</td>
+							<td>メモリアドレス</td>
+							<td>レコード（論理項目）</td>
+						</tr>
+						<tr>
+							<td>配列アクセス</td>
+							<td>R + オフセット</td>
+							<td>添え字（1〜）</td>
+						</tr>
+						<tr>
+							<td>次要素への移動</td>
+							<td>+256バイト</td>
+							<td>添え字 +1</td>
+						</tr>
+						<tr>
+							<td>思考モデル</td>
+							<td>機械寄り</td>
+							<td>業務・意味寄り</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3>変換作業で感じたギャップ</h3>
+				<p>
+					実際の変換作業では、レジスタに256を加算している箇所や、オフセット指定で項目にアクセスしている箇所が非常に多く出てきました。
+					これをそのままの発想でCOBOLに落とし込もうとすると、添え字計算が不自然になり、レコード定義が活かされず、
+					COBOLらしくない読みにくいコードになってしまいます。
+				</p>
+				<p>
+					そこで必要になるのが、「この処理は何バイト動かしているか」ではなく、
+					「どのレコードを扱っているのか」「業務的に何番目のデータなのか」という視点への切り替えです。
+				</p>
+
+				<h3>レジスタ思考から変数思考へ</h3>
+				<p>
+					今回の作業で意識したのは、次の考え方です。
+				</p>
+
+				<ul>
+					<li>レジスタ操作は COBOL 処理系に任せる</li>
+					<li>人間は「レコードの意味」「項目の意味」「処理の流れ」に集中する</li>
+				</ul>
+
+				<p>
+					こうすることで、「+256バイト」は添え字 +1、「R + オフセット」は項目名による参照へと自然に置き換わり、
+					COBOLらしい読みやすいコードに変換できます。
+					これは単なる言語変換ではなく、思考モデルそのものの変換だと感じています。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					アセンブラからCOBOLへの変換作業で強く感じたのは、技術的に難しいのは文法ではなく、
+					“思考の切り替え”であるという点です。
+				</p>
+
+				<p>
+					アセンブラはアドレス・レジスタ・バイト数を意識する世界、  
+					COBOLはレコード・項目・意味を扱う世界。  
+					このギャップを埋めることが、メインフレームオープン化における ASM→COBOL 変換の成否を分けます。
+				</p>
+
+				<p>
+					同じような変換作業に取り組んでいる方の参考になれば幸いです。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0008.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
