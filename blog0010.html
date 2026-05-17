@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「オフキャンバス」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0010.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年5月17日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「オフキャンバス」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年5月17日</span>
+			</div>
+
+			<section class="article-body">
+				<h3>はじめに</h3>
+				<p>
+				Bootstrap5 には、画面の外側からスライドして表示される「オフキャンバス」という便利なコンポーネントがあります。<br>
+				スマートフォンのような狭い画面では、メニューやナビゲーションを省スペースで表示できるため、とても相性の良いUIです。<br>
+				また、左側だけでなく、右側・上下からも表示できる柔軟さがあり、用途に合わせてさまざまなレイアウトに活用できます。<br>
+				今回は、このオフキャンバスを実際に触りながら、使い方や気づいたポイントをまとめてみました。
+				</p>
+
+				<h3>オフキャンバスとは何か</h3>
+				<p>
+				オフキャンバスは、ボタンやリンクをクリックしたときに、画面の外側からスライドして表示されるコンテンツ領域です。<br>
+				スマートフォンのメニュー表示としてよく使われる UI で、限られた画面スペースを有効に使えるのが大きな特徴です。<br>
+				Bootstrap5 では、必要な属性を HTML に追加するだけで簡単に動作し、左右・上下など表示位置も柔軟に切り替えられます。
+				</p>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>
+				オフキャンバスは、メニュー以外にもさまざまな用途に活用できます。<br>
+				カテゴリ一覧、フィルタメニュー、プロフィール、設定パネルなど、補助的な情報を表示する場面で特に便利です。<br>
+				PC ではサブメニューとして、スマホでは主役の UI として活躍するため、レスポンシブなサイト制作と相性が良いと感じました。
+				</p>
+
+				<h3>基本的な実装方法</h3>
+				<p>
+				Bootstrap5 のオフキャンバスは、<code>data-bs-toggle</code> と <code>data-bs-target</code> を指定するだけで動作します。<br>
+				以下は最もシンプルな実装例です。
+				</p>
+
+				<pre><code>&lt;button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#menu"&gt;
+					メニュー
+				&lt;/button&gt;
+
+				&lt;div class="offcanvas offcanvas-start" id="menu"&gt;
+					&lt;div class="offcanvas-header"&gt;
+						&lt;h5 class="offcanvas-title"&gt;メニュー&lt;/h5&gt;
+						&lt;button class="btn-close" data-bs-dismiss="offcanvas"&gt;&lt;/button&gt;
+					&lt;/div&gt;
+					&lt;div class="offcanvas-body"&gt;
+						コンテンツをここに入れます。
+					&lt;/div&gt;
+				&lt;/div&gt;
+				</code></pre>
+
+				<p>
+				表示位置は <code>offcanvas-start</code>（左）、<code>offcanvas-end</code>（右）、<code>offcanvas-top</code>（上）、<code>offcanvas-bottom</code>（下）などに変更できます。<br>
+				用途に合わせてレイアウトを調整できる点がとても便利です。
+				</p>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+				実際にオフキャンバスを試してみると、次のような気づきがありました。<br>
+				・アニメーションが自然で、アプリのような操作感が出る<br>
+				・HTML とクラス指定だけで動くため、実装がとても簡単<br>
+				・幅や背景色を変えるだけで印象が大きく変わる<br>
+				・スマホでは主役、PC では補助 UI として使い分けられる<br>
+				特に、軽い管理画面や補助メニューとして使うと、サイト全体の操作性が向上する印象です。
+				</p>
+
+				<hr>
+
+				<a href="#eventlist" data-bs-toggle="offcanvas">過去のブログ一覧</a>
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="eventlist">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title">過去のブログ一覧</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body">
+						<div class="list-group list-group-flush">
+							<a href="#" class="list-group-item">2026年 5月のブログ</a>
+							<a href="#" class="list-group-item">2026年 4月のブログ</a>
+							<a href="#" class="list-group-item">2026年 3月のブログ</a>
+							<a href="#" class="list-group-item">2026年 2月のブログ</a>
+							<a href="#" class="list-group-item">2026年 1月のブログ</a>
+							<a href="#" class="list-group-item">2025年12月のブログ</a>
+						</div>
+					</div>
+				</div>
+
+				<h3>まとめ</h3>
+				<p>
+				オフキャンバスは、Bootstrap5 の中でも特に使いやすいコンポーネントだと感じました。<br>
+				スマホとの相性が良く、アプリのような操作感を簡単に実装できるため、今後の制作でも積極的に活用していきたい UI です。<br>
+				レイアウトの自由度も高く、メニュー以外の用途にも応用できるので、サイトの使いやすさを向上させたい場面で大いに役立ちます。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（後で追加可能） -->
+			<div class="article-nav">
+				<a href="blog0009.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
