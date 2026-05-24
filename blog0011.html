@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編④～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0011.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年5月24日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編④～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年5月24日</span>
+			</div>
+
+			<section class="article-body">
+				<h3>はじめに</h3>
+				
+				<p>
+				アセンブラ⇔COBOL変換シリーズの第4回として、今回はビット演算に焦点を当てています。<br>
+				メインフレームのオープン化対応では、アセンブラで記述されていた処理を COBOL へ変換する場面が少なくありません。<br>
+				前回までの記事では、変換時に注意すべきポイントを整理してきました。
+				</p>
+
+				<p>
+				その中でも、アセンブラでは当然のように使われているビット演算（AND／OR）は、COBOL に置き換える際に「どの方法が妥当か」を検討する必要があります。
+				</p>
+
+				<p>
+				今回は、アセンブラ→COBOL 変換の中でもビット論理演算（AND／OR）に焦点を当て、実際に採用した方法と、その判断理由について整理します。
+				</p>
+
+				<h3>今回は COBOL 標準ではないが CBLUBIT を使用して対応した</h3>
+				<p>
+				結論から書くと、今回の変換では CBLUBIT サービスルーチンを使用して対応しました。<br>
+				CBLUBIT は COBOL の標準仕様ではありませんが、特定の処理系（IBM 系、日立系など）で提供されているビット論理演算用のサービスルーチンです。
+				</p>
+
+				<p>CBLUBIT の基本的な使い方</p>
+
+				<p>
+				CALL &#x27;CBLUBIT&#x27;<br>
+					USING OP1 OP2 &#x27;A&#x27; RESULT
+				</p>
+
+				<p>
+				この 1 行だけで、OP1 と OP2 を AND（論理積）で演算し、結果を RESULT に格納する処理内容が読み取れます。
+				</p>
+
+				<p>
+				演算コード<br>
+				- &#x27;A&#x27; ：AND（論理積）<br>
+				- &#x27;O&#x27; ：OR（論理和）<br>
+				- &#x27;X&#x27; ：XOR（排他的論理和）
+				</p>
+
+				<p>
+				アセンブラ経験者であれば、元の命令の意図をほぼそのまま読み替えられる点が大きな利点です。
+				</p>
+
+				<p>なぜ CBLUBIT を採用したのか</p>
+
+				<p>
+				今回の変換では、以下の観点を重視しました。<br>
+				- ✅ アセンブラの処理意図が分かりやすい<br>
+				- ✅ コード量が少ない<br>
+				- ✅ 後続の保守要員が読みやすい<br>
+				- ✅ 無理にロジックを分解しない
+				</p>
+
+				<p>
+				COBOL 標準寄りの実装（ORD / CHAR を用いた数値変換＋ビット演算）も検討しましたが、<br>
+				- 処理手順が分散する<br>
+				- なぜその計算をしているのかが分かりにくい<br>
+				- アセンブラ出身者でないと意図が伝わりにくい<br>
+				という点が気になりました。
+				</p>
+
+				<p>
+				今回の変換方針は、「COBOL としての一般性」より「アセンブラから変換された意図の明確さ」を優先しています。
+				</p>
+
+				<p>CBLUBIT 使用時の注意点</p>
+
+				<p>
+				CBLUBIT は便利な反面、以下の点には注意が必要です。<br>
+				- COBOL 標準ではない<br>
+				- 処理系依存のため、環境変更時に影響を受ける<br>
+				- 将来的な完全オープン環境では置換が必要になる可能性がある<br>
+				そのため、コードには前提条件を明示的に残しています。
+				</p>
+
+				<p>
+				ビット論理演算（CBLUBIT 使用）<br>
+				※ 処理系依存のため他環境移植時は要検討
+				</p>
+
+				<p>
+				「なぜこの書き方なのか」を残すことも、オープン化対応における重要な作業だと考えています。
+				</p>
+
+				<p>
+				SHIFT 命令について<br>
+				SHIFT（左シフト／右シフト）命令については、AND / OR とは性質が異なるため今回の記事では扱っていません。<br>
+				SHIFT 命令は単純な数値演算では置き換えられないケースが多く、別途整理したほうが分かりやすいため、別記事としてまとめる予定です。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+				- アセンブラから COBOL への変換では、ビット演算（AND / OR）が一つの検討ポイントになる<br>
+				- CBLUBIT は COBOL 標準ではないが、可読性・保守性の面で非常に有効<br>
+				- 今回は<br>
+				  - ✅ アセンブラの意図を明確に残す<br>
+				  - ✅ 後続保守が理解しやすい<br>
+				  ことを重視し、CBLUBIT を採用した<br>
+				- 処理系依存である点は理解したうえで、コメントで前提条件を明示して対応した
+				</p>
+
+				<p>
+				オープン化とは、単に動くコードを作ることではなく、「なぜそう書いたのか」を将来に残す作業だと、改めて感じた対応でした。
+				</p>
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0010.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
