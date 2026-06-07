@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){ dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="GnuCOBOL を Windows にインストールし、VSCode で実行するまでの手順をまとめた技術ブログです。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>GnuCOBOL を VSCode で動かすまでの手順をまとめました（Windows）｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0013.png" alt="GnuCOBOL と VSCode のセットアップ手順のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年6月7日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">GnuCOBOL を VSCode で動かすまでの手順をまとめました（Windows）</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年6月7日</span>
+			</div>
+
+			<section class="article-body">
+
+				<!-- 1. はじめに -->
+				<h3>1. はじめに</h3>
+				<p>
+					COBOL を VSCode で動かしてみたいと思い、GnuCOBOL を Windows にインストールして実行環境を整えました。
+					日本語でまとまった情報が少なく、特に「VSCode で実行するまで」の手順が分かりづらかったため、今回自分が実際に行った手順をまとめています。
+				</p>
+				<p>
+					インストール画面や VSCode の設定画面もキャプチャしていますので、同じように環境を作りたい方の参考になれば幸いです。
+				</p>
+
+				<!-- 2. インストール手順 -->
+				<h3>2. GnuCOBOL のインストール手順（Windows）</h3>
+
+				<h4>● ダウンロード</h4>
+				<img src="img/blog0013-0.png" alt="GnuCOBOL ダウンロード画面" style="max-width: 100%; height: auto;">
+
+				<h4>● MSI の実行</h4>
+				<img src="img/blog0013-1.png" alt="GnuCOBOL MSI 実行画面" style="max-width: 100%; height: auto;">
+
+				<h4>● インストール完了</h4>
+				<img src="img/blog0013-2.png" alt="GnuCOBOL インストール完了画面" style="max-width: 100%; height: auto;">
+
+				<h4>● 動作確認（cobc --version）</h4>
+				<pre><code>cobc --version</code></pre>
+				<img src="img/blog0013-3.png" alt="cobc --version の実行結果" style="max-width: 100%; height: auto;">
+				<p>バージョンが表示されれば OK です。</p>
+
+				<!-- 3. VSCode 拡張機能 -->
+				<h3>3. VSCode に COBOL 拡張機能を入れる</h3>
+
+				<h4>● COBOL (bitlang) をインストール</h4>
+				<img src="img/blog0013-4.png" alt="VSCode の COBOL 拡張機能インストール画面" style="max-width: 100%; height: auto;">
+				<p>Themes ではなく “COBOL” を選ぶ点に注意。</p>
+
+				<h4>● 補完・シンタックスハイライトの確認</h4>
+				<img src="img/blog0013-5.png" alt="COBOL コードのシンタックスハイライト例" style="max-width: 100%; height: auto;">
+
+				<!-- 4. HELLO_WORLD -->
+				<h3>4. HELLO_WORLD を書いて実行する</h3>
+
+				<h4>● ソースコード</h4>
+				<pre><code>IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO_WORLD.
+PROCEDURE DIVISION.
+	DISPLAY "*** HELLO_WORLD ***".
+	STOP RUN.
+</code></pre>
+
+				<h4>● ビルド</h4>
+				<pre><code>cobc -x helloworld.cob</code></pre>
+
+				<h4>● 実行</h4>
+				<pre><code>./helloworld.exe</code></pre>
+
+				<h4>● 実行結果</h4>
+				<img src="img/blog0013-6.png" alt="Hello COBOL の実行結果" style="max-width: 100%; height: auto;">
+
+				<!-- 5. tasks.json -->
+				<h3>5. VSCode でワンクリック実行できるようにする（tasks.json）</h3>
+
+				<h4>● .vscode フォルダを作成</h4>
+				<img src="img/blog0013-7.png" alt="VSCode のフォルダ構成例" style="max-width: 100%; height: auto;">
+
+				<h4>● tasks.json の内容</h4>
+				<pre><code>{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "COBOL Build & Run",
+			"type": "shell",
+			"command": "cobc -x helloworld.cob; ./helloworld.exe",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		}
+	]
+}
+</code></pre>
+
+				<h4>● 実行方法</h4>
+				<p>Ctrl + Shift + B または「COBOL Build &amp; Run」を選択</p>
+				<img src="img/blog0013-8.png" alt="VSCode タスク実行画面" style="max-width: 100%; height: auto;">
+
+				<!-- 6. 快適に書くポイント -->
+				<h3>6. VSCode で COBOL を快適に書くためのポイント</h3>
+				<ul>
+					<li>補完（DISPLAY など）</li>
+					<li>アウトライン表示</li>
+					<li>ターミナル統合</li>
+					<li>拡張機能の設定項目（必要なら）</li>
+				</ul>
+
+				<!-- 7. まとめ -->
+				<h3>7. まとめ</h3>
+				<p>
+					今回は、Windows 上で GnuCOBOL をインストールし、VSCode で COBOL を実行できる環境を構築しました。
+					特に、tasks.json を使ったワンクリック実行は作業効率が大きく上がるのでおすすめです。
+					今後は、COPYBOOK の利用や、もう少し複雑な COBOL プログラムにも挑戦していきたいと思います。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク -->
+			<div class="article-nav">
+				<a href="blog0012.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
