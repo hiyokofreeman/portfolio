@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Bootstrap5 のスクロールスパイ（Scrollspy）の使い方を、実装例とともにわかりやすく解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「スクロールスパイ」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0014.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年6月14日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「スクロールスパイ」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年6月14日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					Bootstrap5 には、JavaScript を使った便利な UI コンポーネントが多数用意されています。<br>
+					その中でも「スクロールスパイ（Scrollspy）」は、ページ内のスクロール位置に応じて
+					<strong>ナビゲーションの状態を自動で更新してくれる仕組み</strong> です。
+				</p>
+				<p>
+					長いページやセクションが多いページで、現在位置を視覚的に示すのに役立ちます。<br>
+					今回は、このスクロールスパイを実際に触ってみて、どんな場面で使えるのか、どう実装するのかを整理しました。
+				</p>
+
+				<h3>スクロールスパイとは何か</h3>
+				<p>
+					スクロールスパイ（Scrollspy）は、<strong>ページのスクロール位置を監視し、対応するナビゲーション項目を自動でアクティブ表示する機能</strong> です。
+				</p>
+				<p>
+					ドキュメントサイトや長文記事でよく見られる UI で、ユーザーが「今どこを読んでいるのか」を把握しやすくなります。
+				</p>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>スクロールスパイが活きる場面は次のとおりです。</p>
+				<ul>
+					<li>長い記事・技術ドキュメント</li>
+					<li>ランディングページ（LP）</li>
+					<li>プロダクト紹介ページ</li>
+					<li>ポートフォリオサイト</li>
+				</ul>
+
+				<h3>基本的な実装方法</h3>
+				<p>
+					Bootstrap5 のスクロールスパイは、HTML 属性だけで動作させる方法と、JavaScript で初期化する方法があります。<br>
+					ここでは、もっともシンプルな HTML 属性版を紹介します。
+				</p>
+
+				<h4>① ナビゲーションを用意する</h4>
+<pre>
+&lt;nav id="navbar-example" class="nav flex-column"&gt;
+  &lt;a class="nav-link" href="#section1"&gt;セクション1&lt;/a&gt;
+  &lt;a class="nav-link" href="#section2"&gt;セクション2&lt;/a&gt;
+  &lt;a class="nav-link" href="#section3"&gt;セクション3&lt;/a&gt;
+&lt;/nav&gt;
+</pre>
+
+				<h4>② スクロール対象のコンテナに属性を付与</h4>
+<pre>
+&lt;div data-bs-spy="scroll" data-bs-target="#navbar-example" class="scrollspy-example"&gt;
+  &lt;h4 id="section1"&gt;セクション1&lt;/h4&gt;
+  &lt;p&gt;…&lt;/p&gt;
+
+  &lt;h4 id="section2"&gt;セクション2&lt;/h4&gt;
+  &lt;p&gt;…&lt;/p&gt;
+
+  &lt;h4 id="section3"&gt;セクション3&lt;/h4&gt;
+  &lt;p&gt;…&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+				<h4>③ JavaScript で初期化（必要に応じて）</h4>
+<pre>
+const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+  target: '#navbar-example'
+});
+</pre>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<ul>
+					<li>HTML 属性だけで動くため、実装がとても簡単</li>
+					<li>長いページでの迷子防止に効果的</li>
+					<li>スクロール対象の高さ調整が必要な場合がある</li>
+					<li>固定ナビゲーションと組み合わせるとさらに便利</li>
+				</ul>
+
+				<h3>実装例（シンプル版）</h3>
+
+				<!-- ▼ 実際に動くデモ ▼ -->
+				<div class="row mb-4">
+					<div class="col-md-3">
+						<nav id="navbar-example2" class="nav nav-pills flex-column">
+							<a class="nav-link" href="#item-1">項目1</a>
+							<a class="nav-link" href="#item-2">項目2</a>
+							<a class="nav-link" href="#item-3">項目3</a>
+						</nav>
+					</div>
+
+					<div class="col-md-9">
+						<div data-bs-spy="scroll" data-bs-target="#navbar-example2" class="scrollspy-example p-3 border rounded" tabindex="0" style="height: 250px; overflow-y: scroll;">
+							<h4 id="item-1">項目1</h4>
+							<p>スクロールスパイのデモ用テキストです。項目1の内容がここに入ります。</p>
+
+							<h4 id="item-2">項目2</h4>
+							<p>スクロールすると、左側のナビゲーションが自動でアクティブになります。</p>
+
+							<h4 id="item-3">項目3</h4>
+							<p>Bootstrap の Scrollspy は、長いページで現在位置を示すのに便利です。</p>
+						</div>
+					</div>
+				</div>
+				<!-- ▲ デモここまで ▲ -->
+
+<!-- ▼ コード表示（元のソースコード） ▼ -->
+<pre>
+&lt;nav id="navbar-example2" class="nav nav-pills flex-column mb-3"&gt;
+	&lt;a class="nav-link" href="#item-1"&gt;項目1&lt;/a&gt;
+	&lt;a class="nav-link" href="#item-2"&gt;項目2&lt;/a&gt;
+	&lt;a class="nav-link" href="#item-3"&gt;項目3&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;div data-bs-spy="scroll" data-bs-target="#navbar-example2" class="scrollspy-example" tabindex="0"&gt;
+	&lt;h4 id="item-1"&gt;項目1&lt;/h4&gt;
+	&lt;p&gt;…&lt;/p&gt;
+
+	&lt;h4 id="item-2"&gt;項目2&lt;/h4&gt;
+	&lt;p&gt;…&lt;/p&gt;
+
+	&lt;h4 id="item-3"&gt;項目3&lt;/h4&gt;
+	&lt;p&gt;…&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+<!-- ▲ コード表示ここまで ▲ -->
+
+				<h3>まとめ</h3>
+				<p>
+					スクロールスパイは、スクロール位置に応じてナビゲーションを更新する便利な機能です。<br>
+					長いページやセクションが多いページで UX を向上でき、技術ブログや LP など幅広い場面で活用できます。
+				</p>
+				<p>
+					Bootstrap の JavaScript コンポーネントの中でも、導入しやすく効果が分かりやすい機能だと感じました。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0013.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
