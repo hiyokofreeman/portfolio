@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「カルーセル」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0016.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年6月28日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「カルーセル」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年6月28日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+				Bootstrap5 には、複数の画像やコンテンツをスライド形式で切り替えて表示できる「カルーセル」というコンポーネントがあります。<br>
+				写真ギャラリーや商品紹介など、視覚的に情報を伝えたい場面でとても便利な UI です。<br>
+				今回は、実際にカルーセルを触りながら、使い方や気づいたポイントをまとめてみました。
+				</p>
+
+				<h3>カルーセルとは何か</h3>
+				<p>
+				カルーセルは、複数の画像やテキストを順番に切り替えて表示するスライダー UI のことです。<br>
+				Bootstrap5 では、必要なクラスを HTML に追加するだけで簡単に動作し、自動再生・前後ボタン・インジケーターなども標準で利用できます。<br>
+				スマートフォンでも自然に表示されるため、レスポンシブなサイト制作と相性が良いコンポーネントです。
+				</p>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>
+				カルーセルは、次のような場面で活用できます。<br>
+				・写真ギャラリーのスライド表示<br>
+				・制作実績やポートフォリオの紹介<br>
+				・商品画像の切り替え表示<br>
+				・トップページのヒーローヘッダー<br>
+				特に、限られたスペースで複数の画像を見せたいときに効果的です。
+				</p>
+
+				<h3>基本的な実装方法</h3>
+				<p>
+				以下は、4枚の画像（朝・昼・夕・夜の町の風景）をスライド表示する最小構成の例です。
+				</p>
+
+<pre><code>&lt;div id="myCarousel" class="carousel slide" data-bs-ride="carousel"&gt;
+
+	&lt;div class="carousel-inner"&gt;
+	&lt;div class="carousel-item active"&gt;
+		&lt;img src="img/blog0016-0.png" class="d-block w-100" alt="朝の町の風景"&gt;
+	&lt;/div&gt;
+
+	&lt;div class="carousel-item"&gt;
+		&lt;img src="img/blog0016-1.png" class="d-block w-100" alt="昼の町の風景"&gt;
+	&lt;/div&gt;
+
+	&lt;div class="carousel-item"&gt;
+		&lt;img src="img/blog0016-2.png" class="d-block w-100" alt="夕方の町の風景"&gt;
+	&lt;/div&gt;
+
+	&lt;div class="carousel-item"&gt;
+		&lt;img src="img/blog0016-3.png" class="d-block w-100" alt="夜の町の風景"&gt;
+	&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev"&gt;
+	&lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;
+	&lt;/button&gt;
+
+	&lt;button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next"&gt;
+	&lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;
+	&lt;/button&gt;
+
+&lt;/div&gt;
+</code></pre>
+
+				<p>
+				このコードを貼るだけで、4枚の画像が自動で切り替わるカルーセルが動作します。<br>
+				画像サイズは横幅いっぱいに表示され、スマートフォンでも自然に見えるレイアウトになります。
+				</p>
+				
+				<div id="demoCarousel" class="carousel slide my-4" data-bs-ride="carousel">
+
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="img/blog0016-0.png" class="d-block w-100" alt="朝の町の風景">
+						</div>
+
+						<div class="carousel-item">
+							<img src="img/blog0016-1.png" class="d-block w-100" alt="昼の町の風景">
+						</div>
+
+						<div class="carousel-item">
+							<img src="img/blog0016-2.png" class="d-block w-100" alt="夕方の町の風景">
+						</div>
+
+						<div class="carousel-item">
+							<img src="img/blog0016-3.png" class="d-block w-100" alt="夜の町の風景">
+						</div>
+					</div>
+
+					<button class="carousel-control-prev" type="button" data-bs-target="#demoCarousel" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon"></span>
+					</button>
+
+					<button class="carousel-control-next" type="button" data-bs-target="#demoCarousel" data-bs-slide="next">
+						<span class="carousel-control-next-icon"></span>
+					</button>
+
+				</div>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+				実際にカルーセルを試してみると、次のような気づきがありました。<br>
+				・画像の切り替わりが自然で、視覚的にとてもわかりやすい<br>
+				・HTML とクラス指定だけで動くため、実装がとても簡単<br>
+				・画像サイズや比率を揃えると見栄えが大きく向上する<br>
+				・4枚程度だとテンポよく切り替わり、閲覧しやすい<br>
+				特に、写真ギャラリーや制作実績の紹介に使うと、サイト全体の印象がぐっと良くなると感じました。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+				カルーセルは、Bootstrap5 の中でも視覚的な効果が高く、使いやすいコンポーネントだと感じました。<br>
+				画像をスライド表示するだけでサイトの印象が大きく変わり、スマホとの相性も良いため、今後の制作でも積極的に活用していきたい UI です。<br>
+				シンプルな構成でも十分に見栄えがするので、写真や制作実績を紹介したい場面で特におすすめです。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0015.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
