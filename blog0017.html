@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラからCOBOLへの変換で避けるべきコードパターンを解説。保守性を高めるための設計の考え方を紹介します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編⑥～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0017.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年7月5日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編⑥～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年7月5日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+
+				<p>
+				アセンブラは「CPU に近い制御」を前提とした言語であり、COBOL は「業務ロジックの可読性」を重視した言語です。<br>
+				そのため、アセンブラ的に正しい実装をそのまま COBOL に持ち込むと、動作はしても保守性の低いコードになりがちです。
+				</p>
+
+				<p>
+				本記事では、実際の移行作業で頻出する<br>
+				<strong>「ASM 的には正しいが、COBOL では避けるべきコードパターン」</strong><br>
+				を 5 つに整理して紹介します。
+				</p>
+
+				<hr>
+
+				<h3>パターン①：GOTO 依存の制御構造</h3>
+
+				<p><strong>■ ASM 的な書き方</strong></p>
+<pre>
+BNE  LOOP1
+BE   EXIT
+</pre>
+
+				<p>👉 分岐命令で処理を飛ばすのが基本。</p>
+
+				<p><strong>■ COBOL に直訳すると</strong></p>
+<pre>
+IF A NOT = B
+	GO TO LOOP1
+END-IF
+
+IF A = B
+	GO TO EXIT
+END-IF
+</pre>
+
+				<p>👉 処理の流れが追いづらく、スパゲッティ化しやすい。</p>
+
+				<p><strong>■ COBOL 的に望ましい書き方</strong></p>
+<pre>
+PERFORM UNTIL A = B
+	...
+END-PERFORM
+</pre>
+
+				<p>👉 制御構造を使い、処理の意図を明確にする。</p>
+
+				<hr>
+
+				<h3>パターン②：1 バイトフラグによる状態管理</h3>
+
+				<p><strong>■ ASM 的な書き方</strong><br>
+				・X'00' / X'FF' で状態管理<br>
+				・フラグレジスタや 1 バイト領域で制御</p>
+
+				<p><strong>■ COBOL に直訳すると</strong></p>
+<pre>
+IF FLAG = X"FF"
+</pre>
+
+				<p>👉 フラグの意味が読み取れず、可読性が低い。</p>
+
+				<p><strong>■ COBOL 的に望ましい書き方</strong></p>
+<pre>
+IF END-OF-DATA = TRUE
+</pre>
+
+				<p>👉 意味のある名前＋論理値で、意図が一目で分かる。</p>
+
+				<hr>
+
+				<h3>パターン③：型を信用せず MOVE を連鎖させる</h3>
+
+				<p><strong>■ ASM 的な書き方</strong></p>
+<pre>
+PACK ...
+UNPK ...
+</pre>
+
+				<p>👉 数値⇔文字の変換を頻繁に行う前提。</p>
+
+				<p><strong>■ COBOL に直訳すると</strong></p>
+<pre>
+MOVE A TO B
+MOVE B TO C
+MOVE C TO D
+</pre>
+
+				<p>👉 “とりあえず MOVE” の連鎖が発生し、型の意味が曖昧になる。</p>
+
+				<p><strong>■ COBOL 的に望ましい考え方</strong><br>
+				・PIC でデータ型を明確化する<br>
+				・不要な MOVE を排除する<br>
+				・「データの意味」を中心に設計する</p>
+
+				<p>👉 COBOL は型定義が強力なので、変換処理を減らせる。</p>
+
+				<hr>
+
+				<h3>パターン④：ワークエリアの汎用化（汚染）</h3>
+
+				<p><strong>■ ASM 的な書き方</strong><br>
+				・同じ領域に別用途のデータを格納<br>
+				・再利用前提のワークエリア設計</p>
+
+				<p><strong>■ COBOL に直訳すると</strong></p>
+<pre>
+01 WORK-AREA PIC X(100).
+</pre>
+
+				<p>👉 何が入るか分からない「ブラックボックス領域」になり、デバッグ不能。</p>
+
+				<p><strong>■ COBOL 的に望ましい設計</strong><br>
+				・用途ごとに領域を分ける<br>
+				・意味単位で構造化する<br>
+				・必要なら 01 レベルを複数に分割する</p>
+
+				<p>👉 「意味のあるデータ構造」にすることで保守性が大幅に向上。</p>
+
+				<hr>
+
+				<h3>パターン⑤：サブルーチンが外部状態に依存</h3>
+
+				<p><strong>■ ASM 的な書き方</strong><br>
+				・レジスタ前提<br>
+				・ワーク領域前提<br>
+				・外部状態に依存した処理</p>
+
+				<p><strong>■ COBOL に直訳すると</strong></p>
+<pre>
+PERFORM DATACHK.
+</pre>
+
+				<p>👉 何を渡しているのか不明。PERFORM は引数を持てないため、意図が隠れる。</p>
+
+				<p><strong>■ COBOL 的に望ましい書き方</strong></p>
+<pre>
+CALL 'DATACHK' USING DATA-AREA
+</pre>
+
+				<p>👉 必要なデータを明示的に渡すことで、処理内容が読み取れる。</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+
+				<p>
+				アセンブラと COBOL では、言語が想定している世界が根本的に異なります。<br>
+				ASM で「正しい」書き方をそのまま再現しようとすると、COBOL では可読性や保守性を損なう結果になりがちです。
+				</p>
+
+				<p>
+				重要なのは、<strong>処理を再現することではなく、設計を置き換えること</strong>。<br>
+				COBOL では、制御構造・意味の明確化・明示的なインターフェースを意識することで、移行後のシステムを長く保守できる形にできます。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0016.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
