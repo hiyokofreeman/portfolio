@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「トースト」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0018.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年7月12日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「トースト」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年7月12日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					Bootstrapには様々なコンポーネントがありますが、その中でも「トースト（Toast）」は、ちょっとした通知メッセージを手軽に表示できる便利な機能です。
+					今回は、このトーストについて基本的な使い方を調べてみたので、実装例と合わせてまとめます。
+				</p>
+
+				<h3>トーストとは何か</h3>
+				<p>
+					トーストは、一時的な通知メッセージを画面端に表示するためのコンポーネントです。
+					スマートフォンの通知や、Windows の右下に出るポップアップのようなイメージで、次のような場面でよく使われます。
+				</p>
+				<ul>
+					<li>保存完了</li>
+					<li>会員登録完了</li>
+					<li>お問い合わせ送信完了</li>
+					<li>商品のカート追加</li>
+					<li>エラー通知</li>
+				</ul>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>
+					Bootstrapには「Alert」コンポーネントもありますが、Alertはページ内に表示され続けるのに対し、Toastは一定時間で自動的に消えます。
+					そのため、ページの流れを邪魔せず「軽い通知」を伝えたい場面に向いています。
+				</p>
+
+				<h3>基本的な実装方法</h3>
+				<p>最小構成のトーストは次のような HTML で動作します。</p>
+
+<pre><code>&lt;div class="toast" id="myToast"&gt;
+  &lt;div class="toast-header"&gt;
+	&lt;strong class="me-auto"&gt;通知&lt;/strong&gt;
+	&lt;button type="button" class="btn-close" data-bs-dismiss="toast"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="toast-body"&gt;
+	保存が完了しました。
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+				<p>JavaScript を使う場合は次のように表示できます。</p>
+
+<pre><code>const toastElement = document.getElementById('myToast');
+const toast = new bootstrap.Toast(toastElement);
+toast.show();
+</code></pre>
+
+				<h3>表示位置の指定</h3>
+				<p>右上に表示する例です。</p>
+
+<pre><code>&lt;div class="position-fixed top-0 end-0 p-3"&gt;
+  &lt;div class="toast"&gt;
+	...
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+				<p>Bootstrap のユーティリティクラスを使うことで、位置調整がとても簡単です。</p>
+
+				<!-- デモ -->
+				<p class="caption">
+				右上に「Notice: Save completed.」と表示されるトースト通知のデモ画面。コードと動作の関係が一目でわかります。
+				</p>
+				<div class="demo-image">
+					<img src="img/blog0018-0.png" alt="トーストのデモ画像（ダミー）" style="max-width: 100%; height: auto;">
+				</div>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+					Bootstrap のトーストは、少ないコードで実装できるため、JavaScript 初心者でも扱いやすいと感じました。
+					また、ページ遷移を伴わず通知を表示できるため、ユーザーエクスペリエンスの向上にも役立ちます。
+					お問い合わせフォームや会員登録機能などを持つサイトでは、活用できる場面が多いコンポーネントだと思います。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+					Bootstrap のトーストは、一時的な通知を手軽に実装できる便利なコンポーネントです。
+					<ul>
+						<li>保存完了などの軽い通知に向いている</li>
+						<li>自動的に消えるため邪魔にならない</li>
+						<li>少ないコードで実装できる</li>
+						<li>ユーザーの操作を妨げない</li>
+					</ul>
+					Bootstrap を学習している方は、一度試してみる価値がある機能だと感じました。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0017.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
