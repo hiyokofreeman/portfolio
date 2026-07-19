@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラからCOBOLへの移行で発生したメモリ破壊問題の正体と、インターフェース再構築の舞台裏を実務経験から詳しく解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編⑦｜メモリ破壊の正体と、インターフェース再構築の舞台裏｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0019.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年7月19日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編⑦～</h2>
+			<p class="article-subtitle">メモリ破壊の正体と、インターフェース再構築の舞台裏</p>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年7月19日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+				本シリーズでは、メインフレームのオープン化に伴うアセンブラ（ASM）から COBOL への移行について、実務で直面した課題とその対応を紹介しています。<br>
+				今回はその中でも、<strong>最も危険で、発見が難しい「メモリ破壊問題」</strong>と、そこから派生した<strong>インターフェース再設計</strong>について取り上げます。
+				</p>
+
+				<p>
+				現行システムでは、DB アクセスに使用する入出力エリア（I/O エリア）が引数で受け渡されていました。しかし、そのサイズはプログラムごとに異なり、レイアウトも統一されていませんでした。この事実は関係者の間で「なんとなく」共有されていたものの、長年問題なく動いていたため、誰も手を付けていませんでした。
+				</p>
+
+				<p>
+				今回の移行でも当初は、<br>
+				・現行の COBOL 資産は修正したくない<br>
+				・ASM 部分だけを COBOL 化したい<br>
+				・共通サブルーチンで吸収したい<br>
+				という方針でした。<br>
+				しかし、この判断が後に大きな問題へとつながります。
+				</p>
+
+				<hr>
+
+				<h3>想定していた構造</h3>
+<pre>
+COBOL（業務ロジック）
+		↓
+ASM（I/O 制御）
+		↓
+COBOL（DB ハンドラ）
+		↓
+DB
+</pre>
+				<p>
+				今回の移行では、この ASM 部分を COBOL で書き直し、共通サブルーチンとして置き換える計画でした。
+				</p>
+
+				<hr>
+
+				<h3>問題の本質：I/O エリアサイズの不一致</h3>
+				<p>
+				DB アクセスに使用される I/O エリアは、呼び出し元の COBOL プログラムごとにサイズが異なっていました。
+				</p>
+
+				<ul>
+					<li>あるプログラム：200 バイト</li>
+					<li>別のプログラム：500 バイト</li>
+					<li>レイアウトも微妙に異なる</li>
+				</ul>
+
+				<p>
+				これらは仕様書に明記されておらず、<strong>暗黙の契約</strong>で成り立っている状態でした。<br>
+				ASM ではこの曖昧さが許容されてしまいます。
+				</p>
+
+				<ul>
+					<li>アドレス＋決め打ち長でアクセス</li>
+					<li>境界チェックなし</li>
+					<li>呼び出し側が“暗黙に”合わせている</li>
+				</ul>
+
+				<p>
+				しかし、COBOL に置き換えると、この曖昧さがそのまま問題として表面化します。
+				</p>
+
+				<hr>
+
+				<h3>バグの発見：疎通確認で異常発生</h3>
+				<p>
+				変換後のプログラムを用いた疎通確認で、以下のような異常が発生しました。
+				</p>
+
+				<ul>
+					<li>データが意図せず変わる</li>
+					<li>別領域が書き換わる</li>
+					<li>条件によって再現したりしなかったりする</li>
+				</ul>
+
+				<p>
+				調査の結果、原因は明確でした。<br>
+				<strong>引数として渡された I/O エリアのサイズが、サブルーチン側の想定より小さい。</strong>
+				</p>
+
+				<p>
+				呼び出し元は 200 バイトしか確保していないのに、サブルーチン側は 300 バイト分アクセスしていたため、<strong>隣接メモリの上書き（メモリ破壊）</strong>が発生していました。
+				</p>
+
+				<hr>
+
+				<h3>なぜ防げなかったのか</h3>
+				<p>この問題が厄介なのは、以下の理由によります。</p>
+
+				<ul>
+					<li>CALL は基本的に参照渡し（アドレス渡し）</li>
+					<li>コンパイル時にサイズチェックがない</li>
+					<li>実行時にも保護されない</li>
+				</ul>
+
+				<p>
+				つまり、<strong>「動くかどうかは完全に実行時依存」</strong>という状態です。<br>
+				ASM 時代は問題にならなかったものの、COBOL 化により「構造の明示化」が求められたことで、長年の矛盾が露呈しました。
+				</p>
+
+				<hr>
+
+				<h3>当初の対応方針が破綻</h3>
+				<p>
+				当初の狙いは、
+				</p>
+
+				<ul>
+					<li>共通サブルーチンで吸収する</li>
+					<li>呼び出し元の COBOL は無修正</li>
+				</ul>
+
+				<p>
+				しかし、I/O エリアのサイズが呼び出し元依存である以上、<strong>共通化は成立しない</strong>という結論に至りました。<br>
+				これは単なる実装の問題ではなく、<strong>インターフェースの不整合</strong>だったためです。
+				</p>
+
+				<hr>
+
+				<h3>最終対応：インターフェースの再設計</h3>
+
+				<h4>① I/O エリアサイズを最大長で統一</h4>
+<pre>
+01 IO-AREA PIC X(1024).
+</pre>
+
+				<h4>② 親プログラムも修正</h4>
+				<p>
+				すべての CALL 元で、統一されたサイズを使用するよう変更しました。
+				</p>
+
+				<h4>③ ラッパ化による機械的修正</h4>
+				<p>
+				影響範囲が広いため、
+				</p>
+
+				<ul>
+					<li>共通ラッパを作成</li>
+					<li>呼び出し部分を機械的に置換</li>
+				</ul>
+
+				<p>
+				これにより、修正漏れを防止しました。
+				</p>
+
+				<hr>
+
+				<h3>得られた効果</h3>
+				<ul>
+					<li>メモリ破壊が解消</li>
+					<li>インターフェースが明確化</li>
+					<li>将来的な保守性が向上</li>
+				</ul>
+
+				<p>
+				結果として、<strong>暗黙仕様を明示仕様に変換する</strong>という大きな改善につながりました。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+				今回の対応を一言でまとめると、<br>
+				<strong>ASM が許容していた曖昧なバイナリ契約を、COBOL で明示的なインターフェースに再設計した</strong>ということになります。
+				</p>
+
+				<ul>
+					<li>I/O エリアのサイズ不一致はメモリ破壊を引き起こす</li>
+					<li>共通サブルーチンでは吸収できない問題がある</li>
+					<li>問題の本質は「実装」ではなく「インターフェース」</li>
+					<li>解決には呼び出し元を含めた再設計が必要</li>
+				</ul>
+
+				<p>
+				そして今回の経験で強く感じたのは、<br>
+				<strong>「動いているから正しい」ではなく、「契約が正しいか」を見る重要性</strong>でした。
+				</p>
+
+				<p>
+				メインフレームのオープン化では、こうした“長年隠れていた問題”が表面化するケースが少なくありません。移行は単なる変換ではなく、<strong>設計を見直す機会</strong>でもあると実感しました。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0018.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
