@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「アコーディオン」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0020.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年7月26日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「アコーディオン」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年7月26日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					Bootstrap には、見た目の調整だけでなく、動きを簡単に実装できる
+					JavaScript コンポーネントが数多く用意されています。
+					その中でも「アコーディオン（Accordion）」は、
+					クリック操作によってコンテンツの表示・非表示を切り替えられる便利な UI です。
+					本記事では、Bootstrap5 のアコーディオンについて概要を整理し、
+					基本的な使い方を実際に試した内容をまとめています。
+				</p>
+
+				<h3>アコーディオンとは何か</h3>
+				<p>
+					アコーディオンとは、見出しをクリックすると対応する内容が展開され、再度クリックすると折りたたまれる UI のことです。
+					楽器のアコーディオンが伸び縮みする様子に似ていることから、この名前が付けられています。
+				</p>
+				<ul>
+					<li>▶ よくある質問</li>
+					<li>▼ よくある質問（回答が表示される）</li>
+				</ul>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<ul>
+					<li><strong>FAQ（よくある質問）</strong></li>
+					<li><strong>サービス紹介ページ</strong></li>
+					<li><strong>スマートフォン向けメニュー</strong></li>
+					<li><strong>商品説明</strong></li>
+				</ul>
+
+				<h3>基本的な実装方法</h3>
+				<p>Bootstrap の CSS と JavaScript を読み込みます。</p>
+
+<pre><code>&lt;link rel="stylesheet" href="css/bootstrap.min.css"&gt;
+&lt;script src="js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+				<p>その後、アコーディオン用の HTML を記述します。</p>
+
+<pre><code>&lt;div class="accordion" id="sampleAccordion"&gt;
+
+  &lt;div class="accordion-item"&gt;
+
+	&lt;h2 class="accordion-header"&gt;
+	  &lt;button
+		class="accordion-button"
+		type="button"
+		data-bs-toggle="collapse"
+		data-bs-target="#collapseOne"&gt;
+		サービス内容
+	  &lt;/button&gt;
+	&lt;/h2&gt;
+
+	&lt;div
+	  id="collapseOne"
+	  class="accordion-collapse collapse show"
+	  data-bs-parent="#sampleAccordion"&gt;
+
+	  &lt;div class="accordion-body"&gt;
+		当サービスでは Web サイト制作を提供しています。
+	  &lt;/div&gt;
+
+	&lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+
+				<!-- 実際に動作するデモ -->
+				<h3>実際に動作するデモ</h3>
+				<div class="demo-area" style="margin-bottom: 30px;">
+
+					<div class="accordion" id="demoAccordion">
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button" type="button"
+									data-bs-toggle="collapse" data-bs-target="#demoOne">
+									サービス内容
+								</button>
+							</h2>
+							<div id="demoOne" class="accordion-collapse collapse show"
+								data-bs-parent="#demoAccordion">
+								<div class="accordion-body">
+									当サービスでは Web サイト制作を提供しています。
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button"
+									data-bs-toggle="collapse" data-bs-target="#demoTwo">
+									料金プラン
+								</button>
+							</h2>
+							<div id="demoTwo" class="accordion-collapse collapse"
+								data-bs-parent="#demoAccordion">
+								<div class="accordion-body">
+									料金プランはご要望に応じて柔軟に対応しています。
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button"
+									data-bs-toggle="collapse" data-bs-target="#demoThree">
+									利用手順
+								</button>
+							</h2>
+							<div id="demoThree" class="accordion-collapse collapse"
+								data-bs-parent="#demoAccordion">
+								<div class="accordion-body">
+									お問い合わせ → ヒアリング → 制作 → 納品 の流れで進行します。
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+					実際に試してみると、少ないコード量で実装できる点が非常に便利だと感じました。
+					これまで JavaScript で開閉処理を実装しようとすると、
+				</p>
+				<ul>
+					<li>クリックイベントの設定</li>
+					<li>表示・非表示の切り替え</li>
+					<li>アニメーション制御</li>
+				</ul>
+				<p>
+					などを自分で作り込む必要がありました。
+					しかし Bootstrap のアコーディオンを利用すると、HTML に必要なクラスや属性を追加するだけで動作します。
+					また、スマートフォン表示との相性も良く、限られた画面スペースを有効活用できる点も魅力です。
+					FAQ ページやサービス紹介ページなど、ポートフォリオサイトでも活用できそうだと感じました。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+					今回は Bootstrap5 の JavaScript コンポーネント「アコーディオン」を試してみました。
+					アコーディオンには次のような特徴があります。
+				</p>
+
+				<ul>
+					<li>コンテンツの表示・非表示を切り替えられる</li>
+					<li>画面をすっきり見せられる</li>
+					<li>FAQ やサービス紹介との相性が良い</li>
+					<li>少ないコード量で実装できる</li>
+					<li>Bootstrap だけで簡単に利用できる</li>
+				</ul>
+
+				<p>
+					実際の Web サイトでもよく利用されているため、Bootstrap を学習している方は一度試してみると理解が深まると思います。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0019.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
