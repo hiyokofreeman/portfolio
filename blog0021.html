@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラ→COBOL変換の現場で実際に必要となったMakefile自動生成の取り組みを紹介。変換作業の裏側で行われたビルド整備やPerlによる自動化の工夫を解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ→COBOL変換【番外編】｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0021.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年8月2日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ→COBOL変換【番外編】</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年8月2日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+				本シリーズでは、メインフレーム環境で稼働していたアセンブラ（ASM）プログラムを COBOL へ移行する過程で直面した課題を中心に紹介してきました。<br>
+				今回は少し視点を変えて、<strong>変換作業そのものではないが、実際の現場では確実に必要になった作業</strong>について触れます。いわば「番外編」「付録編」のような位置づけです。
+				</p>
+
+				<p>
+				移行作業は、プログラムを変換して終わりではありません。<br>
+				<strong>オープン環境で動かすためのビルド周りの整備</strong>も、確実に必要な工程でした。
+				</p>
+
+				<hr>
+
+				<h3>Makefile 作成を依頼された背景</h3>
+				<p>
+				アセンブラから COBOL への変換作業が一段落しつつあった頃、次の依頼が届きました。
+				</p>
+
+				<blockquote>
+				「COBOL をコンパイルするための Makefile を作ってほしい」
+				</blockquote>
+
+				<p>
+				対象となる COBOL プログラムは複数本。コンパイル方法はほぼ共通ですが、数が多い。<br>
+				正直なところ、
+				</p>
+
+				<blockquote>
+				「1本や2本なら手で書けるけれど、この数を全部手作業で作るのは厳しい…」
+				</blockquote>
+
+				<p>というのが最初の感想でした。</p>
+
+				<hr>
+
+				<h3>手作業での Makefile 作成の問題点</h3>
+				<p>手で Makefile を作る場合、次のような問題が見えてきます。</p>
+
+				<ul>
+					<li>ほぼ同じ内容を何度も書く必要がある</li>
+					<li>プログラム名の書き間違いが起きやすい</li>
+					<li>修正が入ると、すべての Makefile を直す必要がある</li>
+					<li>作業者によって書き方が微妙に変わる</li>
+				</ul>
+
+				<p>
+				特に今回は <strong>対象プログラム数が多い</strong> ことがネックでした。<br>
+				「とりあえず作る」ことはできますが、<strong>後からの修正や再実行に耐えない作業</strong>になってしまいます。
+				</p>
+
+				<hr>
+
+				<h3>自動生成という判断</h3>
+				<p>
+				そこで考えたのが、
+				</p>
+
+				<blockquote>
+				<strong>Makefile を手で作るのではなく、“作る仕組み”を作る</strong>
+				</blockquote>
+
+				<p>という方法です。</p>
+
+				<ul>
+					<li>Makefile の雛形（テンプレート）を用意</li>
+					<li>コンパイル対象のプログラム名だけを差し替える</li>
+					<li>対象プログラム分を一括で生成する</li>
+				</ul>
+
+				<p>この形にしておけば、</p>
+
+				<ul>
+					<li>何度でも作り直せる</li>
+					<li>修正が入ってもテンプレートを直すだけでよい</li>
+					<li>作業ミスを大幅に減らせる</li>
+				</ul>
+
+				<hr>
+
+				<h3>なぜ Perl を使ったのか</h3>
+				<p>今回の自動生成ツールに使ったのは <strong>Perl</strong> でした。理由はとてもシンプルです。</p>
+
+				<ul>
+					<li>昔、テキスト処理の学習で Perl を触ったことがあった</li>
+					<li>文字列置換やファイル生成が得意な言語</li>
+					<li>一時的なツールであり、速度や UI は不要</li>
+				</ul>
+
+				<p>
+				流行している言語ではありませんが、今回の用途では Perl が最も素直に書けると感じました。<br>
+				「昔勉強しただけの知識」が、このタイミングで役に立ったのは正直うれしい経験でした。
+				</p>
+
+				<hr>
+
+				<h3>実装の概要</h3>
+				<p>実装自体はそこまで複雑ではありません。大まかな流れは次の通りです。</p>
+
+				<ol>
+					<li>Makefile の雛形をテキストファイルとして用意</li>
+					<li>コンパイル対象となる COBOL プログラム名をリスト化</li>
+					<li>Perl で以下を実装
+						<ul>
+							<li>雛形ファイルを読み込む</li>
+							<li>プログラム名部分を置換する</li>
+							<li>プログラムごとの Makefile を出力</li>
+						</ul>
+					</li>
+					<li>対象プログラム分を一括で処理</li>
+				</ol>
+
+				<p>
+				つまり、<strong>「Makefile を作るプログラム」を作った</strong>という形になります。
+				</p>
+
+				<hr>
+
+				<h3>実際に得られた効果</h3>
+				<ul>
+					<li>Makefile 作成時間の大幅短縮</li>
+					<li>人為的ミスの削減</li>
+					<li>修正が入っても再生成するだけで対応可能</li>
+					<li>将来的な自動ビルド（Jenkins 等）にもつなげやすい構成</li>
+				</ul>
+
+				<p>
+				一度仕組みを作ってしまえば、<strong>何度でも同じ品質で再利用できる</strong> のが大きなメリットでした。
+				</p>
+
+				<hr>
+
+				<h3>振り返り</h3>
+				<p>今回の作業を振り返ると、</p>
+
+				<ul>
+					<li>Perl を「昔勉強しただけ」で終わらせていなかったこと</li>
+					<li>手作業を前提にしなかったこと</li>
+					<li>変換以外の周辺作業にも目を向けたこと</li>
+				</ul>
+
+				<p>
+				これらが結果的に役に立ちました。<br>
+				オープン化案件では、
+				</p>
+
+				<blockquote>
+				<strong>変換作業そのものだけでなく、その前後の作業も含めて品質が決まる</strong>
+				</blockquote>
+
+				<p>と改めて感じました。</p>
+
+				<hr>
+
+				<h3>おわりに</h3>
+				<p>
+				今回はアセンブラ→COBOL 変換という本編から少し外れた、<strong>Makefile 自動生成</strong> の話を書きました。
+				</p>
+
+				<p>
+				本編では扱いきれない、
+				</p>
+
+				<ul>
+					<li>ビルド</li>
+					<li>テスト</li>
+					<li>自動化</li>
+					<li>周辺ツール</li>
+				</ul>
+
+				<p>
+				といった話題は、今後も「番外編」として書くかもしれません。<br>
+				同じようなオープン化案件に関わる方の、何かしらの参考になれば幸いです。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0020.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
