@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「ドロップダウン」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0022.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年8月9日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「ドロップダウン」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年8月9日</span>
+			</div>
+
+			<section class="article-body">
+
+				<!-- はじめに -->
+				<h3>はじめに</h3>
+				<p>
+					Bootstrap には、ナビゲーションや UI を簡単に実装できる JavaScript コンポーネントが数多く用意されています。
+					今回はその中から「ドロップダウン（Dropdown）」を試してみました。
+					Web サイトではよく見かける機能ですが、Bootstrap を使うことで HTML に専用のクラスや属性を追加するだけで簡単に実装できます。
+					本記事では、ドロップダウンの概要から基本的な使い方までをまとめます。
+				</p>
+
+				<!-- ドロップダウンとは -->
+				<h3>ドロップダウンとは何か</h3>
+				<p>
+					ドロップダウンとは、ボタンやリンクをクリックした際にメニューを表示する UI コンポーネントです。
+					例えば以下のような場面で利用されています。
+				</p>
+
+				<ul>
+					<li>グローバルナビゲーション</li>
+					<li>ユーザーメニュー</li>
+					<li>設定メニュー</li>
+					<li>カテゴリ選択</li>
+				</ul>
+
+				<p>
+					通常は非表示の状態で配置し、ユーザーの操作によってメニューを展開します。
+					画面スペースを有効活用できるため、多くの Web サイトや Web アプリケーションで利用されています。
+				</p>
+
+				<!-- 基本構造 -->
+				<h3>基本的な実装方法</h3>
+				<p>
+					Bootstrap5 では、<code>dropdown</code> クラスと
+					<code>data-bs-toggle="dropdown"</code> 属性を利用します。
+					まずは最小構成の基本構造を紹介します。
+				</p>
+
+				<!-- 実際に動く基本構造 -->
+				<div class="dropdown mb-3">
+					<button
+						class="btn btn-primary dropdown-toggle"
+						type="button"
+						data-bs-toggle="dropdown"
+						aria-expanded="false">
+						メニュー
+					</button>
+
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">項目1</a></li>
+						<li><a class="dropdown-item" href="#">項目2</a></li>
+						<li><a class="dropdown-item" href="#">項目3</a></li>
+					</ul>
+				</div>
+
+				<!-- 基本構造のコード例 -->
+<pre><code>&lt;div class="dropdown"&gt;
+	&lt;button
+		class="btn btn-primary dropdown-toggle"
+		type="button"
+		data-bs-toggle="dropdown"
+		aria-expanded="false"&gt;
+		メニュー
+	&lt;/button&gt;
+
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;項目1&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;項目2&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;項目3&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+				<!-- 応用例 -->
+				<h3>コード例と動作例</h3>
+				<p>次に、色や項目を変えた応用例を紹介します。</p>
+
+				<!-- 実際に動く応用例 -->
+				<div class="dropdown mb-3">
+					<button
+						class="btn btn-success dropdown-toggle"
+						type="button"
+						data-bs-toggle="dropdown">
+						サンプルメニュー
+					</button>
+
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">項目A</a></li>
+						<li><a class="dropdown-item" href="#">項目B</a></li>
+						<li><a class="dropdown-item" href="#">項目C</a></li>
+					</ul>
+				</div>
+
+				<!-- 応用例のコード -->
+<pre><code>&lt;div class="dropdown"&gt;
+	&lt;button
+		class="btn btn-success dropdown-toggle"
+		type="button"
+		data-bs-toggle="dropdown"&gt;
+		サンプルメニュー
+	&lt;/button&gt;
+
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;項目A&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;項目B&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;項目C&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+				<!-- 実際に触ってみて感じたこと -->
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+					実際に試してみると、少ないコード量でメニュー機能を実装できる点が非常に便利だと感じました。
+					JavaScript を自分で書かなくても動作するため、学習中の方でも扱いやすいコンポーネントです。
+					特にナビゲーションやユーザーメニューなど、ポートフォリオサイトでも活用できる場面が多いと感じました。
+				</p>
+
+				<hr>
+
+				<!-- まとめ -->
+				<h3>まとめ</h3>
+				<p>
+					Bootstrap5 のドロップダウンは、少ないコード量でメニュー機能を実装できる便利なコンポーネントです。
+					ナビゲーションやユーザーメニューなど、さまざまな場面で活用できます。
+					Bootstrap を学習している方は、一度試してみると理解が深まると思います。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0021.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<!-- JS 読み込み（CDN版で安定） -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
