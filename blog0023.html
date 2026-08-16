@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="アセンブラからCOBOLへの移行で直面したレジスタ管理の難しさと、解析時に必要となる追跡方法について実務経験から解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編⑧～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0023.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム／レガシーシステム｜投稿日：2026年8月16日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編⑧～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム／レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年8月16日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+				本シリーズでは、メインフレームのオープン化に伴うアセンブラ（ASM）から COBOL への移行について、実務で直面した課題とその対応を紹介しています。<br>
+				今回はその中でも、私が最初に苦労した<strong>レジスタ管理（R0～R15）</strong>について取り上げます。
+				</p>
+
+				<p>
+				COBOL ではデータ項目に名前を付けて管理しますが、アセンブラでは CPU 内部のレジスタを使い分けながら処理を進めます。<br>
+				そのため、解析時には「今このレジスタには何が入っているのか」を常に意識しながらソースを追う必要がありました。
+				</p>
+
+				<hr>
+
+				<h3>レジスタの役割と複数使用の難しさ</h3>
+				<p>
+				メインフレームのアセンブラには、以下の 16 本の汎用レジスタがあります。
+				</p>
+
+<pre>
+R0 ～ R15（汎用レジスタ）
+</pre>
+
+				<p>
+				レジスタは高速な作業領域として、次のような用途で利用されます。
+				</p>
+
+				<ul>
+					<li>データの格納</li>
+					<li>アドレスの保持</li>
+					<li>パラメータの受け渡し</li>
+					<li>演算結果の保存</li>
+					<li>ループ制御</li>
+				</ul>
+
+				<p>
+				実際の ASM ソースでは、複数レジスタが同時に使われることが珍しくありません。
+				</p>
+
+				<ul>
+					<li>R1：入力データのアドレス</li>
+					<li>R2：出力データのアドレス</li>
+					<li>R3：処理件数</li>
+					<li>R4：ワーク領域</li>
+					<li>R5：テーブル検索用</li>
+				</ul>
+
+				<p>
+				しかし、これらの役割がコメントに書かれているとは限らず、解析時には<br>
+				「R5 は今どのデータを指しているのか」<br>
+				「この命令で R3 は更新されたのか」<br>
+				といった点を逐一確認する必要がありました。
+				</p>
+
+				<hr>
+
+				<h3>レジスタ追跡の実際</h3>
+				<p>
+				解析では、単に「R1 を使っている」ではなく、<strong>1 ステップ単位でレジスタの内容を追跡</strong>しました。
+				</p>
+
+				<p>
+				その値が、
+				</p>
+
+				<ul>
+					<li>テーブルの先頭アドレスなのか</li>
+					<li>データ領域のオフセットなのか</li>
+					<li>ループカウンタなのか</li>
+				</ul>
+
+				<p>
+				を確認しながら処理を追う必要がありました。
+				</p>
+
+				<p>
+				さらに、アセンブラでは一つのレジスタが途中で別の役割を持つこともあります。<br>
+				そのため、
+				</p>
+
+				<ul>
+					<li>いつ値が設定されたのか</li>
+					<li>どの命令で更新されたのか</li>
+					<li>現在の値は何を意味しているのか</li>
+					<li>この先の処理でも利用されるのか</li>
+				</ul>
+
+				<p>
+				といった点を常に意識しながら解析を進めました。
+				</p>
+
+				<hr>
+
+				<h3>COBOL 変換時の課題</h3>
+				<p>
+				ASM から COBOL へ変換する際も、レジスタ管理は大きな課題となります。<br>
+				COBOL にはレジスタという概念がないため、変換後はワーク領域に置き換えられます。
+				</p>
+
+<pre>
+01 WS-R1.
+01 WS-R2.
+01 WS-R3.
+</pre>
+
+				<p>
+				しかし、単に変数名が付いただけでは、元のレジスタの意味までは分かりません。<br>
+				大規模なプログラムでは、変換後の COBOL を読むだけでは理解できず、元の ASM に戻って確認する場面も多くありました。
+				</p>
+
+				<p>
+				私自身、解析時にはレジスタごとの役割をメモしながら、
+				</p>
+
+				<ul>
+					<li>レジスタの用途</li>
+					<li>値の変化</li>
+					<li>他レジスタとの受け渡し</li>
+					<li>分岐後の状態</li>
+				</ul>
+
+				<p>
+				などを整理していました。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+				ASM から COBOL への変換作業では、レジスタ管理の理解が欠かせません。<br>
+				R1～R15 の役割を把握し、どのタイミングで値が更新されるのかを追跡することが、プログラム解析の第一歩になります。
+				</p>
+
+				<p>
+				変換ツールによって COBOL が生成されても、レジスタが持っていた意味までは自動的に理解できません。<br>
+				1 ステップ単位でレジスタの状態を追跡することで、アセンブラ特有の処理の流れが少しずつ見えてきました。
+				</p>
+
+				<p>
+				ASM→COBOL 変換は単なる言語変換ではなく、<strong>レジスタ中心の世界から変数中心の世界へ読み替える作業</strong>でもあると感じています。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0022.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
