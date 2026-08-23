@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Bootstrap5のツールチップ（Tooltip）を使って補足説明を表示する方法を、実装例とともに分かりやすく解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「ツールチップ」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0024.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年8月23日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「ツールチップ」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年8月23日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					Bootstrapには、ボタンやナビゲーションバーなど便利なコンポーネントが数多く用意されています。今回はその中でも、マウスポインタを合わせたときに補足説明を表示できる「ツールチップ（Tooltip）」を試してみました。
+				</p>
+				<p>
+					画面上に説明文を常時表示するとレイアウトが煩雑になることがありますが、ツールチップを使うことで必要なときだけ補足情報を表示できます。この記事では、Bootstrap5のツールチップの概要や利用シーン、基本的な実装方法について紹介します。
+				</p>
+
+				<h3>ツールチップとは何か</h3>
+				<p>
+					ツールチップとは、指定した要素にマウスポインタを合わせた際に、小さな吹き出し形式で説明文を表示する機能です。アイコンの意味説明や入力項目の補足、操作ガイドなど、さまざまな場面で活用できます。
+				</p>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>ツールチップは、情報を必要なときだけ表示したい場合に便利です。</p>
+
+				<p>
+					<strong>1. アイコン説明</strong><br>
+					初めて利用するユーザーにとって、アイコンの意味が分かりにくい場合があります。ツールチップを設定することで「このボタンは削除機能です」といった補足を表示できます。
+				</p>
+
+				<p>
+					<strong>2. 入力フォームの補足</strong><br>
+					パスワード入力欄の条件など、画面をすっきり保ちながら補足情報を提供できます。
+				</p>
+
+				<p>
+					<strong>3. 操作ガイド</strong><br>
+					初めて利用する機能や設定画面で、操作方法のヒントとして活用できます。
+				</p>
+
+				<h3>基本的な実装方法</h3>
+				<p>Bootstrap5でツールチップを利用するには、HTMLで属性を設定し、JavaScriptで初期化を行います。</p>
+
+				<pre><code>&lt;button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="tooltip"
+  data-bs-placement="top"
+  title="ツールチップの説明です"&gt;
+  マウスを合わせる
+&lt;/button&gt;
+</code></pre>
+
+				<pre><code>const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+  new bootstrap.Tooltip(tooltipTriggerEl);
+});
+</code></pre>
+
+				<p>これで対象要素にマウスポインタを合わせると、ツールチップが表示されます。</p>
+
+				<!-- デモ -->
+				<div class="mb-4">
+					<button
+						type="button"
+						class="btn btn-success"
+						data-bs-toggle="tooltip"
+						data-bs-placement="right"
+						title="サンプルツールチップです">
+						マウスを合わせてください
+					</button>
+				</div>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+					実際に使ってみると、実装は非常に簡単で、Bootstrap初心者でもすぐに利用できると感じました。説明文を常時表示しなくて済むため、画面デザインをすっきり保てる点もメリットです。
+				</p>
+				<p>
+					ただし、スマートフォンではホバー操作ができない場合があるため、重要な説明をツールチップだけに頼るのは注意が必要です。補足説明や操作ヒントとして利用するのが適していると感じました。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+					今回はBootstrap5のJavaScriptコンポーネントである「ツールチップ」を試してみました。ツールチップを利用することで、画面レイアウトを崩すことなく補足情報を表示できます。
+				</p>
+				<p>
+					アイコンの説明、入力フォームの補足、操作ガイドなど、さまざまな場面で活用できます。Bootstrapには他にも便利なコンポーネントが多く用意されているため、今後も実際に試しながら記事としてまとめていきたいと思います。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0023.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
