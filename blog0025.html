@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ブログ記事ページ。Web制作に関する学びや制作の裏側を紹介しています。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化～アセンブラ☞COBOL変換編⑨～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0025.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム｜投稿日：2026年8月30日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化～アセンブラ☞COBOL変換編⑨～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>制作</strong></span>
+				<span class="date">投稿日：2026年8月30日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					アセンブラ（ASM）の解析を始めた頃、レジスタ管理と並んで理解に苦労したのが
+					<strong>「ベースレジスタ」</strong> と <strong>「USING命令」</strong> の仕組みでした。<br><br>
+					COBOLでは項目名を記述するだけでデータを参照できますが、アセンブラでは
+					<strong>メモリ上のアドレスを意識しながら処理が進む</strong>ため、ソースを読んでいても<br>
+					「このデータはどこを参照しているのか」<br>
+					「なぜこのオフセットで正しい項目が取れるのか」<br>
+					がすぐには分からない場面が多くありました。<br><br>
+					今回は、ASM→COBOL変換で必ず理解が必要になるベースレジスタとUSING命令についてまとめます。
+				</p>
+
+				<h3>ベースレジスタとは何か</h3>
+				<p>
+					アセンブラでは、命令やデータを参照する際に<strong>ベースレジスタ</strong>が使われます。<br>
+					簡単に言えば、ベースレジスタとは<strong>「基準となるアドレスを保持するレジスタ」</strong>です。<br><br>
+
+					例えば、次のような状態を考えます。<br>
+					<code>R12 = ワークエリア先頭アドレス</code><br><br>
+
+					このとき、<br>
+					<code>FIELD1 = 0(R12)</code><br>
+					<code>FIELD2 = 4(R12)</code><br>
+					<code>FIELD3 = 8(R12)</code><br><br>
+
+					というように、<strong>基準アドレス＋オフセット</strong>の考え方で各項目へアクセスします。<br>
+					COBOLでは項目名を直接記述しますが、アセンブラでは「どのアドレスを基準にしているか」を理解しないと、
+					データ参照の意味が見えてきません。
+				</p>
+
+				<h3>USING命令の役割</h3>
+				<p>
+					この「基準アドレス＋オフセット」を正しく解釈するために使われるのが<strong>USING命令</strong>です。<br><br>
+
+					例えば、<br>
+					<code>USING WORKAREA,R12</code><br><br>
+
+					と記述されている場合、アセンブラに対して<br>
+					<strong>「WORKAREAというレイアウトを、R12の指すアドレスから参照する」</strong><br>
+					という情報を与えています。<br><br>
+
+					私は当初、このUSING命令を単なる宣言のように捉えていました。しかし解析を進めるうちに、
+					USING命令の理解が曖昧だと、後続の命令が<strong>どの領域を参照しているのか分からなくなる</strong>ことに気付きました。
+				</p>
+
+				<h3>解析で確認していたこと</h3>
+				<p>
+					解析時には次の点を常に確認していました。<br>
+					・R12にどのアドレスが設定されているか<br>
+					・USING命令でどの領域が関連付けられているか<br>
+					・オフセット指定がどの項目を指しているか<br><br>
+
+					特に難しかったのは、<strong>複数のベースレジスタが使われているプログラム</strong>です。<br><br>
+
+					<code>USING PROGAREA,R12</code><br>
+					<code>USING TBLAREA,R11</code><br><br>
+
+					この場合、<br>
+					・R12 → プログラム領域<br>
+					・R11 → テーブル領域<br><br>
+
+					というように参照先が複数存在します。<br>
+					そのため、<strong>「今参照しているデータはどちらの領域なのか」</strong>を常に意識しながら読み進める必要がありました。<br><br>
+
+					さらに、処理途中でベースレジスタの内容が更新されるケースもあり、更新を見落とすと参照先が突然変わってしまい、
+					解析結果が誤ってしまいます。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					アセンブラにおけるベースレジスタは、データや命令を参照するための<strong>基準アドレス</strong>です。<br>
+					USING命令は、その基準アドレスを使って<strong>どの領域を参照するかを定義する重要な命令</strong>です。<br><br>
+
+					ASM→COBOL変換は単なる命令の置き換えではなく、<strong>アセンブラ特有のアドレス参照の仕組みを理解しながら読み解く作業</strong>だと改めて感じたテーマでした。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0024.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
