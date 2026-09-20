@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="メインフレームのオープン化（アセンブラ→COBOL変換）に関する技術記事です。PACK / UNPK の役割と変換ポイントを解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化 ～アセンブラ→COBOL変換編⑩～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0028.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム・レガシーシステム｜投稿日：2026年9月20日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化 ～アセンブラ→COBOL変換編⑩～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム・レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年9月20日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					メインフレームのアセンブラプログラムをCOBOLへ変換する作業では、算術演算命令だけでなくデータ形式を変換する命令も数多く登場します。その中でも頻繁に見かけるのが「PACK」と「UNPK」です。
+				</p>
+				<p>
+					私は組込み開発出身のため、バイナリデータの扱いには慣れていたものの、メインフレーム特有のゾーン形式やパック形式にはかなり戸惑いました。今回は、アセンブラからCOBOLへの変換作業で避けて通れないPACK命令とUNPK命令について紹介します。
+				</p>
+
+				<h3>PACKとは（ゾーン10進 → パック10進）</h3>
+				<p>
+					PACK命令は、ゾーン10進形式の数値をパック10進形式へ変換する命令です。ゾーン10進形式では、上位4ビットがゾーン（F）、下位4ビットが数字を表します。例として、'1' は F1、'2' は F2 となります。
+				</p>
+				<p>
+					例えば次のような文字データがあるとします。
+				</p>
+				<p><strong>'12345'</strong></p>
+				<p>
+					EBCDICコード上では各桁が1バイトずつ保持されます。これをPACKすると、
+				</p>
+				<p><strong>12 34 5C</strong></p>
+				<p>
+					のようなパック10進データに変換されます。最終バイトの「C」は符号（正）を表し、負の場合は「D」になります。
+				</p>
+				<p>
+					パック10進形式では1バイトに2桁の数値を格納できるため、データ容量を節約できます。また、メインフレームでは算術演算命令（AP、SP、MP、DPなど）がCOMP-3（パック10進）を前提としているため、計算前にPACKする処理が頻繁に現れます。
+				</p>
+
+				<h3>UNPKとは（パック10進 → ゾーン10進）</h3>
+				<p>
+					UNPK命令はPACKとは逆の処理を行い、パック10進形式のデータをゾーン10進形式へ展開します。
+				</p>
+				<p><strong>12 34 5C</strong></p>
+				<p>
+					というパック10進データをUNPKすると、
+				</p>
+				<p><strong>12345</strong></p>
+				<p>
+					という文字形式の数値へ変換されます。帳票出力や画面表示では人間が読める形式が必要になるため、演算後にUNPKが実行されるケースをよく見かけます。
+				</p>
+
+				<h3>COBOL変換時の考え方</h3>
+				<p>
+					アセンブラでは次のようなコードが記述されていることがあります。
+				</p>
+				<pre>
+PACK WKNUM, CHARNUM
+...
+UNPK CHAROUT, WKNUM
+				</pre>
+				<p>
+					しかしCOBOLでは、データ定義次第でコンパイラが暗黙的に変換してくれます。
+				</p>
+				<pre>
+01 CHAR-NUM   PIC X(5).
+01 WK-NUM	 PIC S9(5) COMP-3.
+
+MOVE CHAR-NUM TO WK-NUM.
+				</pre>
+				<p>
+					このため単純に命令を1対1で置き換えるのではなく、「なぜPACKしているのか」「なぜUNPKしているのか」を理解することが重要です。アセンブラではデータ形式を明示的に変換していたものが、COBOLでは暗黙的に処理されることも少なくありません。
+				</p>
+
+				<h3>私が最初に戸惑ったポイント</h3>
+				<p>
+					組込み開発では数値を扱う際、バイナリ・16進数・浮動小数点を意識することが多くありました。一方、メインフレームではゾーン10進・パック10進・DISPLAY・COMP-3など独特の表現が登場します。
+				</p>
+				<p>
+					特にアセンブラ解析を始めた頃は、PACK、UNPK、ZAP、AP、SP といった命令が並んでいるだけで何をしているのか理解するのに苦労しました。しかし「文字形式」と「計算用形式」を変換しているだけと理解すると、処理の流れがかなり見えやすくなりました。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					PACKはゾーン10進形式からパック10進形式への変換、UNPKはその逆変換を行う命令です。メインフレームでは計算処理の前後で頻繁に使用されるため、アセンブラ解析を行う際の重要な基礎知識になります。
+				</p>
+				<p>
+					アセンブラからCOBOLへの変換では、単純な命令変換ではなく「データ形式がどのように変化しているか」を理解することが大切です。PACK/UNPKの役割を理解すると、アセンブラの処理意図を読み解きやすくなります。
+				</p>
+				<p>
+					メインフレームのオープン化案件では、このようなデータ形式の違いを理解することが、変換品質向上への第一歩だと感じています。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク -->
+			<div class="article-nav">
+				<a href="blog0027.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
