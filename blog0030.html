@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Bootstrap5のJavaScriptを使ってアラート（Alert）を動的に生成・追加する方法を、実際のコード例や利用シーンとともに分かりやすく解説します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜JavaScriptコンポーネント「アラート」を動的に生成してみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0030.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年10月4日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜JavaScriptコンポーネント「アラート」を動的に生成してみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年10月4日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					Bootstrapには、メッセージを目立たせるための<strong>「アラート（Alert）」</strong>というコンポーネントが用意されています。
+				</p>
+				<p>
+					これまで私は静的なHTMLとしてアラートを配置することが多かったのですが、今回はJavaScriptを使ってアラートを動的に生成する方法を試してみました。
+				</p>
+				<p>
+					フォーム送信後の通知や処理結果の表示など、実務でも活用できそうな機能だったので、備忘録としてまとめてみます。
+				</p>
+
+				<h3>アラートとは何か</h3>
+				<p>
+					アラートとは、ユーザーへメッセージを通知するためのBootstrapコンポーネントです。成功メッセージやエラー通知など、視覚的に分かりやすく伝えることができます。
+				</p>
+				<p>例えば次のような用途で利用されます。</p>
+
+				<p>
+					<strong>1. 入力内容のエラー通知</strong><br>
+					入力漏れやフォーマットエラーをユーザーに知らせます。
+				</p>
+
+				<p>
+					<strong>2. データ登録完了メッセージ</strong><br>
+					フォームの送信やデータの保存が成功したことを伝えます。
+				</p>
+
+				<p>
+					<strong>3. システムからの注意喚起</strong><br>
+					メンテナンス情報や重要な注意事項を提示します。
+				</p>
+
+				<p>
+					<strong>4. 処理成功のお知らせ</strong><br>
+					削除完了や更新完了などの結果を表示します。
+				</p>
+
+				<p>
+					Bootstrapでは色分けされた複数のスタイルが用意されています。成功時は緑色、エラー時は赤色など、メッセージの意味が視覚的に伝わりやすくなります。
+				</p>
+
+<pre><code>&lt;div class="alert alert-success" role="alert"&gt;
+	登録が完了しました。
+&lt;/div&gt;
+
+&lt;div class="alert alert-danger" role="alert"&gt;
+	エラーが発生しました。
+&lt;/div&gt;
+</code></pre>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>
+					アラートはさまざまな場面で利用できます。
+				</p>
+
+				<p>
+					<strong>フォーム送信完了時：</strong>「お問い合わせを受け付けました。」<br>
+					<strong>入力エラー時：</strong>「メールアドレスを入力してください。」<br>
+					<strong>ログイン成功時：</strong>「ログインしました。」<br>
+					<strong>削除処理の完了時：</strong>「データを削除しました。」
+				</p>
+
+				<p>
+					静的なHTMLでも実装できますが、JavaScriptで動的に生成すると必要なタイミングだけ表示できるため便利です。
+				</p>
+
+				<h3>基本的な実装方法</h3>
+				<p>
+					Bootstrap5ではJavaScriptからアラート要素を生成し、任意の場所へ追加できます。
+				</p>
+
+				<p>まずはアラートを表示するための領域とボタンを用意します。</p>
+
+<pre><code>&lt;div id="alert-area"&gt;&lt;/div&gt;
+
+&lt;button id="showAlert" class="btn btn-primary"&gt;
+	表示
+&lt;/button&gt;
+</code></pre>
+
+				<p>続いてJavaScriptを記述します。</p>
+
+<pre><code>document.getElementById("showAlert").addEventListener("click", () =&gt; {
+
+	const wrapper = document.createElement("div");
+
+	wrapper.innerHTML = `
+		&lt;div class="alert alert-warning alert-dismissible fade show" role="alert"&gt;
+			動的に生成されたアラートです。
+			&lt;button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="alert"
+				aria-label="Close"&gt;
+			&lt;/button&gt;
+		&lt;/div&gt;
+	`;
+
+	document.getElementById("alert-area").append(wrapper);
+});
+</code></pre>
+
+				<p>ボタンを押すたびに新しいアラートが生成されます。</p>
+
+				<!-- デモ -->
+				<div class="mb-4">
+					<div id="alert-area" class="mb-2"></div>
+					<button id="showAlert" class="btn btn-primary" type="button">
+						表示デモ
+					</button>
+				</div>
+
+				<p><strong>動作イメージ：</strong></p>
+				<ol>
+					<li>「表示」ボタンをクリック</li>
+					<li>アラートが表示される</li>
+					<li>「×」ボタンを押す</li>
+					<li>アラートが閉じる</li>
+				</ol>
+
+				<p>
+					非常にシンプルな仕組みですが、動的コンテンツとの相性が良いと感じました。
+				</p>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+					今回試してみて感じたのは、<strong>「画面遷移なしでユーザーへ情報を伝えられる」</strong>という点です。
+				</p>
+				<p>
+					特にフォームや非同期処理（AjaxやFetch API）と組み合わせると、登録成功・更新完了・エラー発生といった結果を分かりやすく表示できます。
+				</p>
+				<p>
+					また、Bootstrap側で色やレイアウトが整えられているため、自分で細かなCSSを作り込まなくても見やすいメッセージエリアを実装できました。
+				</p>
+				<p>
+					一方で、ボタンを連打するとアラートが大量に生成されてしまうため、実際に利用する場合は表示数を制限したり、自動で消す処理を追加したりする工夫も必要だと感じました。学習目的で触ってみましたが、実務でも十分活用できそうなコンポーネントだと思います。
+				</p>
+
+				<hr>
+
+				<h3>まとめ</h3>
+				<p>
+					今回はBootstrap5のJavaScriptコンポーネントである「アラート」を動的に生成してみました。
+				</p>
+				<p>ポイントは次の通りです。</p>
+				<ul>
+					<li>アラートはユーザーへの通知表示に利用できる</li>
+					<li>JavaScriptから動的に生成できる</li>
+					<li>処理結果の表示に向いている</li>
+					<li>Bootstrapの標準デザインを活用できる</li>
+					<li>実運用では表示数や自動削除も検討するとよい</li>
+				</ul>
+				<p>
+					HTMLだけでも利用できますが、JavaScriptと組み合わせることで活用範囲が大きく広がります。今後はFetch APIと組み合わせて、「処理結果に応じてアラートを表示する仕組み」も試してみようと思います。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0029.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<!-- Bootstrap JS（Popper同梱） -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 動的アラート生成スクリプト -->
+<script>
+document.getElementById("showAlert").addEventListener("click", () => {
+	const wrapper = document.createElement("div");
+
+	wrapper.innerHTML = `
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			動的に生成されたアラートです。
+			<button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="alert"
+				aria-label="Close">
+			</button>
+		</div>
+	`;
+
+	document.getElementById("alert-area").append(wrapper);
+});
+</script>
+
+</body>
+</html>
