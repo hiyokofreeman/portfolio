@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="組込み開発26年で学んだ、技術より大切な3つの考え方についてまとめた経験談です。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>組込み開発26年で学んだ、技術より大切な3つのこと｜技術者としての経験談</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0031.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">キャリア経験談｜投稿日：2026年10月11日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">組込み開発26年で学んだ、技術より大切な3つのこと</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>キャリア経験談</strong></span>
+				<span class="date">投稿日：2026年10月11日</span>
+			</div>
+
+			<section class="article-body">
+
+				<h3>はじめに</h3>
+				<p>
+					私は約26年間、組込みソフトウェア開発に携わってきました。
+					その間、アセンブラ言語、AD変換・DA変換、各種シリアル通信、Ethernet通信、
+					オシロスコープによる波形観測、実機デバッグなど、さまざまな技術に触れてきました。
+					しかし振り返ってみると、本当に価値があったのは個々の技術ではなく、
+					その経験を通じて身についた「考え方」だったように思います。
+				</p>
+
+				<h3>1. 本質・理屈を理解すること</h3>
+				<p>
+					組込み開発では、現象だけを見て対処すると痛い目に遭います。
+					なぜそのメモリ構成なのか、なぜ割込み優先順位がそうなっているのか、
+					なぜ通信エラーが発生するのかを理解しないまま対症療法を繰り返しても、
+					本当の解決にはなりません。
+					若い頃は「とりあえず動けばよい」と考えていた時期もありましたが、
+					経験を重ねるうちに、現象ではなく原因を理解することの重要性を強く実感しました。
+				</p>
+
+				<h3>2. 処理の優先順位を意識すること</h3>
+				<p>
+					組込みシステムでは、すべての処理を同時に実行できるわけではありません。
+					CPUの性能には限界があるため、今すぐ実行する処理、少し遅れても問題ない処理、
+					後回しにする処理を常に意識する必要があります。
+					優先順位を誤ると、応答遅延、データ取りこぼし、制御異常につながることがあります。
+					組込み開発を通じて私は、限られた資源をどう使うかを常に考える習慣を身につけました。
+				</p>
+
+				<h3>3. 常に処理時間を意識すること</h3>
+				<p>
+					組込み開発では処理時間が非常に重要です。
+					1秒、100ミリ秒、1ミリ秒といった単位で動作を考えることがあり、
+					場合によってはマイクロ秒単位の調整も必要になります。
+					若い頃は「この程度なら問題ないだろう」と思って実装し、
+					実機で想定外の遅延が発生したこともありました。
+					その経験から、処理時間や割込み応答、最大負荷時の動作を常に意識するようになりました。
+					オシロスコープで波形を観測したり、長時間の連続運転試験を行った経験は数え切れません。
+				</p>
+
+				<h3>おわりに</h3>
+				<p>
+					26年間の組込み開発で多くの技術を学びました。
+					しかし、今振り返って最も役立っているのは、
+					本質・理屈を理解すること、処理の優先順位を意識すること、
+					常に処理時間を意識することの3つです。
+					技術そのものは時代とともに変化しますが、この3つの考え方は変わりません。
+					組込み開発で培った経験は、開発対象が変わった今でも、私の仕事の土台になっています。
+				</p>
+
+			</section>
+
+			<hr>
+
+			<div class="article-nav">
+				<a href="blog0030.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<footer class="footer">
+		<p>&copy;Copyright 技術者としての経験談. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
