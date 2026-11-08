@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="メインフレームのオープン化案件の現場で見つけたHiRDBのコマンドやデータディクショナリ、データベース参照についての学びを紹介します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化 ～現場で見かけたHiRDBを触ってみた～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0035.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">技術コラム｜投稿日：2026年11月8日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化 ～現場で見かけたHiRDBを触ってみた～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム・レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年11月8日</span>
+			</div>
+
+			<section class="article-body">
+				<h3>はじめに</h3>
+				<p>
+					メインフレームのオープン化案件では、現新比較やデータ変換作業が中心となることが多いです。<br>
+					私自身、普段はデータ変換や比較作業を担当していますが、ある日、手順書の中に見慣れないコマンドを見つけました。
+				</p>
+				<p>
+					<code>pddbls -r ALL -b</code>
+				</p>
+				<p>
+					「これは何のコマンドだろう？」<br>
+					そこから調査を始めた結果、HiRDBのコマンドやデータディクショナリに触れる機会がありました。<br>
+					今回は、その時の学びをまとめます。
+				</p>
+				<p>
+					※HiRDBは日立製作所が提供するリレーショナルデータベース管理システムです。<br>
+					メインフレームやオープン系システムの現場で利用されることがあり、今回の案件でもデータ管理に使われていました。
+				</p>
+
+				<h3>見慣れないコマンドとの出会い</h3>
+				<p>
+					まず実施したのは、コマンドの正体を調べることでした。<br>
+					DBサーバーへログインし、Linuxの <code>type</code> コマンドを実行します。
+				</p>
+				<p>
+					<code>type pddbls</code>
+				</p>
+				<p>
+					結果は次の通りでした。<br>
+					<code>pddbls is /xxx/HiRDB_xxx/bin/pddbls</code>
+				</p>
+				<p>
+					これにより、
+				</p>
+				<ul>
+					<li>Linux標準コマンドではない</li>
+					<li>HiRDBのコマンドである</li>
+				</ul>
+				<p>
+					ことが分かりました。<br>
+					知らないコマンドを見つけたら、<strong>「まず正体を調べる」</strong>という基本的なアプローチが重要だと改めて感じました。
+				</p>
+
+				<h3>pdsqlでデータベースを参照してみる</h3>
+				<p>
+					続いて、HiRDBのSQL実行環境である <code>pdsql</code> を起動してみました。
+				</p>
+				<p>
+					<code>pdsql</code>
+				</p>
+				<p>
+					起動後に、テーブル一覧を参照するSQLを実行しました。<br>
+					<code>SELECT * FROM MASTER.SQL_TABLES;</code>
+				</p>
+				<p>
+					結果は、<br>
+					<code>KFPX27010-I 640 rows selected.</code><br>
+					でした。
+				</p>
+				<p>
+					最初はメッセージ番号の意味が分かりませんでしたが、640件のデータを取得という情報メッセージでした。エラーではなく正常終了です。
+				</p>
+
+				<h3>データディクショナリとは？</h3>
+				<p>
+					今回初めて知ったのが「データディクショナリ」という存在です。<br>
+					簡単に言うと、<strong>データベース自身が持つ設計書のようなもの</strong>です。
+				</p>
+				<p>
+					例えば、
+				</p>
+				<ul>
+					<li>テーブル名</li>
+					<li>カラム名</li>
+					<li>データ型</li>
+					<li>インデックス情報</li>
+				</ul>
+				<p>
+					などの定義情報が格納されています。<br>
+					実データではなく、「データを説明するためのデータ」が保存されています。
+				</p>
+
+				<h3>テーブルの列定義を確認する</h3>
+				<p>
+					次にカラム情報を参照してみました。
+				</p>
+				<pre><code>SELECT COLUMN_NAME, DATA_TYPE
+FROM MASTER.SQL_COLUMNS
+WHERE TABLE_NAME = '対象テーブル名';</code></pre>
+				<p>
+					結果は次のような内容でした。
+				</p>
+				<pre><code>COLUMN_NAME DATA_TYPE
+----------- ---------
+DATA        CHAR
+KEY         DECIMAL</code></pre>
+				<p>
+					さらに、<code>2 rows selected.</code> と表示されました。<br>
+					このテーブルには、<code>DATA</code>（文字型）と <code>KEY</code>（数値型）の2項目が定義されていることが分かります。
+				</p>
+				<p>
+					実際に定義情報を参照することで、現新比較だけでは見えないデータベースの内部構造を少し理解できた気がします。
+				</p>
+
+				<h3>実データも確認してみる</h3>
+				<p>
+					定義が分かったので、実データも参照してみました。<br>
+					<code>SELECT * FROM 対象テーブル名;</code>
+				</p>
+				<p>
+					ここで初めて、
+				</p>
+				<ul>
+					<li>テーブル定義</li>
+					<li>実際のデータ</li>
+				</ul>
+				<p>
+					を結び付けて確認できました。<br>
+					これは組込み開発で例えるなら、<strong>「回路図を見る」</strong>と<strong>「実際の波形を見る」</strong>の関係に近いかもしれません。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					今回は現場で見かけたHiRDBコマンドをきっかけに、
+				</p>
+				<ul>
+					<li>HiRDBコマンドの調査</li>
+					<li><code>pdsql</code> の起動</li>
+					<li>データディクショナリの参照</li>
+					<li>テーブル定義の確認</li>
+					<li>実データの確認</li>
+				</ul>
+				<p>
+					を体験しました。<br>
+					現新比較は地道な作業が多いですが、「なぜそうなっているのか」を調べ始めると意外と面白いものです。
+				</p>
+				<p>
+					これからも、現場で見かけた知らないコマンドや技術要素を一つずつ調べながら、知識を増やしていきたいと思います。
+				</p>
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（後で追加可能） -->
+			<div class="article-nav">
+				<a href="blog0034.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
