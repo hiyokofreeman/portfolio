@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="メインフレームのオープン化案件におけるアセンブラからCOBOLへの変換（CLC命令）について、比較処理や分岐ロジックで意識したポイントを紹介します。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>メインフレームのオープン化 ～アセンブラ→COBOL変換編⑪CLC／比較処理で意識したこと～｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0036.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">メインフレーム・レガシーシステム｜投稿日：2026年11月15日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">メインフレームのオープン化 ～アセンブラ→COBOL変換編⑪～</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>メインフレーム・レガシーシステム</strong></span>
+				<span class="date">投稿日：2026年11月15日</span>
+			</div>
+
+			<section class="article-body">
+				<h3>はじめに</h3>
+				<p>
+					アセンブラからCOBOLへの変換では、CLC（Compare Logical Character）命令の比較結果と分岐命令の関係を正しく理解することが重要です。<br>
+					今回は「CLC（Compare Logical Character）」と呼ばれる比較命令について確認した際の話です。<br>
+					比較処理そのものはシンプルに見えますが、比較結果に応じて分岐するロジックを正しく理解していないと、期待とは逆の動作になってしまいます。<br>
+					特に <strong>THEN（真）／ELSE（偽）の解釈</strong> には注意が必要だと感じました。
+				</p>
+
+				<h3>CLC命令とCOBOL変換の構造</h3>
+				<p>
+					CLCは、2つのデータを比較するための命令です。<br>
+					アセンブラのソースでは、以下のような形を見かけます。
+				</p>
+				<pre><code>CLC 項目A,項目B
+BE LABEL-A</code></pre>
+				<p>
+					変換後のCOBOLでは、次のような処理になることが多くあります。
+				</p>
+				<pre><code>IF 項目A = 項目B
+    ...
+ELSE
+    ...
+END-IF</code></pre>
+				<p>
+					一見すると分かりやすいのですが、変換結果を確認する際には以下のポイントを特に意識して確認しました。
+				</p>
+				<ul>
+					<li>比較条件は本当に一致しているか</li>
+					<li>THEN側が真の場合の処理か</li>
+					<li>ELSE側が偽の場合の処理か</li>
+					<li>条件が反転していないか</li>
+				</ul>
+				<p>
+					もしTHENとELSEを取り違えてしまうと、プログラム自体は正常に動作しているように見えても、結果が期待値と異なってしまいます。
+				</p>
+
+				<h3>比較処理を確認する際の4ステップ</h3>
+				<p>
+					実際の変換結果を確認する際は、次の4ステップで確認すると整理しやすいと感じています。
+				</p>
+				<ol>
+					<li>アセンブラ側の比較命令を確認する</li>
+					<li>分岐命令（BE、BNEなど）を確認する</li>
+					<li>COBOL側のIF条件を確認する</li>
+					<li>THEN／ELSEの処理内容を確認する</li>
+				</ol>
+				<p>
+					比較処理は派手な部分ではありませんが、オープン化ではこうした細かな確認の積み重ねが品質につながると感じています。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>
+					今回のCLC確認では、比較結果そのものよりも、その後の分岐処理を重点的にチェックしました。<br>
+					特にTHEN（真）とELSE（偽）の取り違えは、期待した結果にならない原因となるため注意が必要です。
+				</p>
+				<p>
+					CLC命令自体は単純な比較命令ですが、変換後の分岐ロジックまで含めて確認することで、思わぬ判定ミスを防ぐことができます。
+				</p>
+				<p>
+					アセンブラからCOBOLへの変換では、複雑なロジックだけでなく、このような基本的な比較処理についても丁寧に確認することの大切さを改めて実感しました。<br>
+					オープン化案件では地道な確認作業が続きますが、一つひとつの積み重ねが品質向上につながると感じています。
+				</p>
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（後で追加可能） -->
+			<div class="article-nav">
+				<a href="blog0035.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
