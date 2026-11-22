@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7469BNE0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RB7469BNE0');
+	</script>
+	<!-- ここから先にCSSやタイトルなどが続きます -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Bootstrap5の「コンテナ（container）」について基本的な使い方と実際に触ってみた感想、レイアウトでの役割をまとめた記事です。">
+	<meta name="author" content="Yut.N（ユート・エヌ）">
+	<meta name="robots" content="index, follow">
+
+	<title>Bootstrap5｜「コンテナ」を使ってみた｜Web制作における挑戦と探求</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDP+Gothic&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+	<!-- ヘッダー -->
+	<header class="header">
+		<h1>Web制作における挑戦と探求</h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="index.html">ホーム</a></li>
+				<li><a href="update.html">お知らせ</a></li>
+				<li><a href="portfolio.html">制作実績</a></li>
+				<li><a href="sample.html">制作サンプル</a></li>
+				<li><a href="books.html">参考書籍</a></li>
+				<li><a href="blogtop.html" class="active">コラム・ブログ</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- アイキャッチ -->
+	<div class="keyvisual">
+		<img src="img/blog0037.png" alt="記事のアイキャッチ画像" style="max-width: 100%; height: auto;">
+		<p class="caption">Web制作｜投稿日：2026年11月22日</p>
+	</div>
+
+	<!-- メイン -->
+	<main>
+		<article class="blog-article">
+
+			<h2 class="article-title">Bootstrap5｜「コンテナ」を使ってみた</h2>
+
+			<div class="article-meta">
+				<span class="category category-seisaku">カテゴリ：<strong>Web制作</strong></span>
+				<span class="date">投稿日：2026年11月22日</span>
+			</div>
+
+			<section class="article-body">
+				<h3>はじめに</h3>
+				<p>
+					Bootstrap5を学習している中で、「コンテナ（container）」というクラスが頻繁に登場することに気付きました。
+				</p>
+				<p>
+					最初は「何のために使うのだろう？」と思っていましたが、実際に試してみると、ページレイアウトを整えるための重要な役割を持っていることが分かりました。
+				</p>
+				<p>
+					今回はBootstrap5のコンテナについて、基本的な使い方と実際に触ってみた感想をまとめます。
+				</p>
+
+				<h3>コンテナとは何か</h3>
+				<p>
+					コンテナは、Bootstrapでコンテンツを配置するための土台となる要素です。主な役割は以下のとおりです。
+				</p>
+				<ul>
+					<li>コンテンツの横幅を制御する</li>
+					<li>左右に適切な余白を確保する</li>
+					<li>画面サイズに応じてレイアウトを調整する</li>
+					<li>グリッドシステム（row・col）の親要素として利用する</li>
+				</ul>
+				<p>Bootstrapでは次のような構造がよく使用されます。</p>
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;
+      コンテンツ
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<p>
+					コンテナがあることで、画面いっぱいに広がり過ぎることなく、見やすいレイアウトを作ることができます。
+				</p>
+
+				<h3>どんな場面で活用できるのか</h3>
+				<p>コンテナは様々な場面で活用できます。</p>
+				<p><strong>・サイト全体のレイアウト</strong></p>
+<pre><code>&lt;div class="container"&gt;
+  サイト全体の内容
+&lt;/div&gt;</code></pre>
+				<p>コンテンツを中央寄せにしたい場合に便利です。</p>
+
+				<p><strong>・セクションごとのレイアウト</strong></p>
+<pre><code>&lt;section class="container"&gt;
+  サービス紹介
+&lt;/section&gt;
+
+&lt;section class="container"&gt;
+  会社概要
+&lt;/section&gt;</code></pre>
+				<p>各セクションを独立して管理できます。</p>
+
+				<p><strong>・グリッドシステムとの組み合わせ</strong></p>
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-6"&gt;左&lt;/div&gt;
+    &lt;div class="col-md-6"&gt;右&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<p>2カラムや3カラムなどのレイアウトを簡単に実現できます。</p>
+
+				<h3>基本的な実装方法</h3>
+				<p>Bootstrapには主に2種類のコンテナがあります。</p>
+				<p><strong>container</strong></p>
+<pre><code>&lt;div class="container"&gt;
+  ...
+&lt;/div&gt;</code></pre>
+				<p>画面サイズに応じて最大幅が設定されます。企業サイトやブログなどでよく利用されます。</p>
+
+				<p><strong>container-fluid</strong></p>
+<pre><code>&lt;div class="container-fluid"&gt;
+  ...
+&lt;/div&gt;</code></pre>
+				<p>常に画面幅いっぱいまで広がります。ダッシュボードや管理画面などで利用されることが多いです。</p>
+
+				<h3>コード例と動作例</h3>
+				<p>以下のコードを作成して動作を確認してみました。</p>
+<pre><code>&lt;div class="container border"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-6 bg-light"&gt;
+      左側のコンテンツ
+    &lt;/div&gt;
+    &lt;div class="col-md-6 bg-secondary text-white"&gt;
+      右側のコンテンツ
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<p>表示結果は次のようなイメージになります。</p>
+<pre><code>+--------------------------------------+
+| container                            |
+|                                      |
+|  +--------------+-----------------+  |
+|  | 左側         | 右側            |  |
+|  +--------------+-----------------+  |
+|                                      |
++--------------------------------------+</code></pre>
+				<p>
+					画面幅が狭くなると、Bootstrapのレスポンシブ機能によって自動的に縦並びへ切り替わります。
+				</p>
+
+				<h3>実際に触ってみて感じたこと</h3>
+				<p>
+					最初は「グリッドシステムだけ覚えればよいのでは？」と思っていました。
+				</p>
+				<p>
+					しかし実際に試してみると、コンテナがあることで適切な余白や横幅が自動で設定されるため、自分で細かくCSSを書く手間を減らせることが分かりました。
+				</p>
+				<p>
+					また、コンテナはページに1つだけではなく、複数配置できることも学びました。例えば以下のように、用途に応じて使い分けられます。
+				</p>
+<pre><code>&lt;header class="container-fluid"&gt;&lt;/header&gt;
+
+&lt;section class="container"&gt;&lt;/section&gt;
+
+&lt;section class="container"&gt;&lt;/section&gt;
+
+&lt;footer class="container-fluid"&gt;&lt;/footer&gt;</code></pre>
+				<p>
+					個人的には、HTMLとCSSで作成していた <code>.wrapper { max-width: 1200px; margin: 0 auto; }</code> に近い役割だと感じました。
+				</p>
+
+				<h3>まとめ</h3>
+				<p>Bootstrap5のコンテナは、レイアウトの土台となる重要な要素です。</p>
+				<p>今回学んだポイントは次のとおりです。</p>
+				<ul>
+					<li>コンテンツの横幅や余白を調整できる</li>
+					<li>グリッドシステムの親要素として利用する</li>
+					<li><code>container</code> と <code>container-fluid</code> の2種類がある</li>
+					<li>ページ内に複数配置しても問題ない</li>
+					<li>CSSのラッパー要素（wrapper）のような役割を持つ</li>
+				</ul>
+				<p>
+					Bootstrapを使い始めたばかりの頃は「row」や「col」に注目しがちですが、その土台となる「container」の役割を理解することで、レイアウト全体の仕組みが見えやすくなりました。
+				</p>
+				<p>
+					今後も実際に手を動かしながらBootstrapの各機能を試していきたいと思います。
+				</p>
+			</section>
+
+			<hr>
+
+			<!-- 前後の記事リンク（後で追加可能） -->
+			<div class="article-nav">
+				<a href="blog0036.html">← 前の記事</a>
+				<a href="blogtop.html" class="back">一覧ページへ戻る</a>
+			</div>
+
+		</article>
+	</main>
+
+	<!-- フッター -->
+	<footer class="footer">
+		<p>&copy;Copyright Web制作における挑戦と探求. All rights reserved.</p>
+	</footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
